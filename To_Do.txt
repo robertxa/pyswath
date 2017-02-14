@@ -1,0 +1,4 @@
+TO DO
+
+	- Check results if NaN in the DEM --> seems to give strange transects for the min value.
+	- 
