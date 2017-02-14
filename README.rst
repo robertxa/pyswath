@@ -106,9 +106,10 @@ Options/inputs are (option_names):
 				Default = [20000]
 	7. binsize: altitude binsize (for the altitude frequency plot) in the same units than the DEM (m if m; km if km; deg if deg)
 				
-					ex: binsize = 20
+		ex: binsize = 20
 				
-				Default = 20
+	Default = 20
+	
 	8. title: title of the graphic
 			The name will also be used to define the name:
 				- in which the shapefiles are stored
@@ -130,38 +131,36 @@ Options/inputs are (option_names):
 	11. densitymin, densitymax: set the density colorbar limits (between [0,1]).
 								Set it to None, if you want to keep the automatic settings
 								
-									Default: densitymin = None
-									densitymax = None
+								Default: densitymin = None
+
+								Default: densitymax = None
 									
 	12. remNoData: Flag to remove (True) or not (False) the NoData values from a DEM
 					2015/08 : does not work very well, avoid it for the moment.
 					
-						Default: remNoData = False
+					Default: remNoData = False
 					
 	13. corrnan: Flag to correct (True) or no (False) the graph from the Nan values
 				Be careful, it replace the NaN values with the min value of the frequency
 					
-					Default: corrnan = False
+				Default: corrnan = False
 					
 	14. nodatav: value of the NoData
 				Default: nodatav = 0.0
-	15. multipoints: Multipoints section : 
-					Flag to set a profil with multipoints
+	15. multipoints: Multipoints section, Flag to set a profil with multipoints
 						- [False] = only two points (Default)
 						- [True] = more than two points
 						- [True, False,...] if several  transects
 					
-						ex: multipoints = [False]
+							ex: multipoints = [False]
 					
-	16. nbpointsint: Multipoints section :
-					number of intermediary points in the profile
+	16. nbpointsint: Multipoints section, number of intermediary points in the profile
 					If different profiles : nbpointsint = [...,3,2,1]
 					Choose the order of the profiles with a decreasing number of intermediary points to avoid error in the code
 					
 						ex: nbpointsint = [0]
 					
-	17. pointint: C,D,...: Multipoints section :
-				intermediary points in the profile, given from A to B
+	17. pointint: C,D,...: Multipoints section, intermediary points in the profile, given from A to B
 				Be aware of the order !
 				
 					Give the name C for the 1st intermediary point (C = [(-78.255,-9.713),(,),...])
@@ -175,19 +174,9 @@ Options/inputs are (option_names):
 	18. pointsdic: Multipoints section :
 					dictionnary to assign a number to the different points. It should contain the same number of lines than the number of points
 					
-					ex: pointsdic = {1 : C,
+						ex: pointsdic = {1 : C, 2 : D, 3 : E, 4 : F, ... : ...}
 					
-								2 : D,
-					
-								3 : E,
-					
-								4 : F,
-					
-								... : ...
-					
-								}
-	19. printpointsi: Multipoints section :
-					Flag to print (True) or not (False) the position of the intermediary points on the profile
+	19. printpointsi: Multipoints section, Flag to print (True) or not (False) the position of the intermediary points on the profile
 						
 						ex: printpointsi = True
 						
