@@ -44,7 +44,7 @@ Options/inputs
 
 To use options or inputs, you need to set them as
 	
-	swath(option_name = option_value, [...])
+	>>> swathp(option_name = option_value, [...])
 	
 Options/inputs are (option_names):
 
@@ -176,17 +176,17 @@ Outputs
 Inside the working directory, the code build several folders :
 	- Data/: For each profile, the code outputs XXXXX files in Data/:
 		+ data_title_Nbprofile.txt: 
-			Column 1 = Distance along the profile
-			Column 2 = Altitude
-			Column 3 = Altitude frequency
+			* Column 1 = Distance along the profile
+			* Column 2 = Altitude
+			* Column 3 = Altitude frequency
 		+ datamask_title_Nbprofile.txt
 		+ falti_title_Nbprofile.txt: altitude frequency
 		+ statslines_title_Nbprofile.txt: 
-			Column 1 = Distance along profile
-			Column 2 = Min altitude
-			Colunm 3 = Max altitude
-			Column 4 = Median altitude
-			Column 5 = Mean altitude
+			* Column 1 = Distance along profile
+			* Column 2 = Min altitude
+			* Colunm 3 = Max altitude
+			* Column 4 = Median altitude
+			* Column 5 = Mean altitude
 	- Graphs/: for each profile, the code outputs here the graphs in pdf
 	- shpbox/ (defined in the Variable declaration): In this directory, for each profile (or sub-profile if there are intermediary points), the code outputs:
 		+ a shapefile defining the line between the two points of the profile
