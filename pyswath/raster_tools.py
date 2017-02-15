@@ -188,7 +188,7 @@ def raster_projection(rasterfnme, rasterdata, src_geotrans,  srs, dst_filename, 
 	
 	if mem == 'NULL':
 		# Test if the input raster is in lat-long
-		if int(srs.GetAttrValue(u"AUTHORITY", 1)) != 4326:
+		if int(srs.GetAttrValue("AUTHORITY", 1)) != 4326:
 			raise NameError(u'ERROR : the input raster for the raster_projection function '
 			         u'is not in geographic coordinates (i.e. EPSG != 4326)')
 		# Test if raster already exists

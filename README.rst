@@ -230,7 +230,7 @@ Inside the working directory, the code build several folders :
 	- Graphs/: for each profile, the code outputs here the graphs in pdf
 	- shpbox/ (defined in the Variable declaration): In this directory, for each profile (or sub-profile if there are intermediary points), the code outputs:
 		+ a shapefile defining the line between the two points of the profile
-    	+ a shapefile the define the box in which the transect is extracted
+		+ a shapefile that define the box in which the transect is extracted
 
 Contact
 -------
