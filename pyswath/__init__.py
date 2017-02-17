@@ -4,7 +4,7 @@
 from __future__ import  division
 # This to be sure that the result of the division of integers is a real, not an integer
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 # Import modules
 import sys

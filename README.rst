@@ -11,6 +11,9 @@ Install
 -------
 
 To install it :
+
+.. code-block:: python
+
 	pip install pyswath
 
 Dependencies
@@ -34,16 +37,25 @@ Usage
 Inside a (i)python environnement:
 
 To import the module:
-	>>> from pyswath import swathp
+
+.. code-block:: python
+
+>>> from pyswath import swathp
 	
 To plot a swath profile [A,B] through the raster 'DEM/dem.tif':
+
+.. code-block:: python
+
     >>> swathp(rasterfnme = 'DEM/dem.tif',A = [(-78.4,-9.3)], B = [(-77.5,-8.5)],Coord = 'latlong',xsteps = [0.02], boxwidths = [0.2], binsize = 20,title = 'CB')
 
 Options/inputs
 --------------
 
 To use options or inputs, you need to set them as	
-	>>> swathp(option_name = option_value, [...])
+
+.. code-block:: python
+
+    >>> swathp(option_name = option_value, [...])
 	
 Options/inputs are (option_names):
 	1. rasterfnme: name of the raster to work with
@@ -178,9 +190,9 @@ Options/inputs are (option_names):
 					
 	19. printpointsi: Multipoints section, Flag to print (True) or not (False) the position of the intermediary points on the profile
 						
-						ex: printpointsi = True
+					ex: printpointsi = True
 						
-					Default = False
+				Default = False
 					
 	20. idensity: Flag to plot the density (True) or not (Default, False)
 
@@ -189,26 +201,36 @@ Help files
 ----------
 
 To get help in your (i)python environnement:
+
+.. code-block:: python
+
 	>>> help(swath)
 	
 Examples
 --------
 
 To plot a swath profile [A,B] through the raster 'DEM/dem.tif' that is in lat-long (not projected):
-    >>> swathp(rasterfnme = 'DEM/dem.tif',A = [(-78.4,-9.3)], B = [(-77.5,-8.5)],Coord = 'latlong',
-    xsteps = [0.02], boxwidths = [0.2], binsize = 20,title = 'CB')
+
+.. code-block:: python
+
+    >>> swathp(rasterfnme = 'DEM/dem.tif',A = [(-78.4,-9.3)], B = [(-77.5,-8.5)],Coord = 'latlong', xsteps = [0.02], boxwidths = [0.2], binsize = 20,title = 'CB')
 
 To plot a swath profile through the raster 'DEM/Nperu_proj.tif' that is projected to UTM zone 18S:
-	>>> swathp(rasterfnme = 'DEM/Nperu_proj.tif',A = [(162374,9299742)], B = [(321829,9399929)],Coord = 'utm',
-	xsteps = [10000], boxwidths = [20000], binsize = 20,title = 'NPeru')
+
+.. code-block:: python
+    >>> swathp(rasterfnme = 'DEM/Nperu_proj.tif',A = [(162374,9299742)], B = [(321829,9399929)],Coord = 'utm',xsteps = [10000], boxwidths = [20000], binsize = 20,title = 'NPeru')
 	
 To plot 2 swath profiles though the raster 'DEM/dem.tif' that is in lat-long (not projected):
-    >>> swathp(rasterfnme = 'DEM/dem.tif',A = [(-78.4,-9.3),(-78.4,-8.0)], B = [(-77.5,-8.5),(-76.0,-9.2)],
-    Coord = 'latlong',xsteps = [0.02], boxwidths = [0.2], binsize = 20,title = 'CB')
+
+.. code-block:: python
+
+    >>> swathp(rasterfnme = 'DEM/dem.tif',A = [(-78.4,-9.3),(-78.4,-8.0)], B = [(-77.5,-8.5),(-76.0,-9.2)],Coord = 'latlong',xsteps = [0.02], boxwidths = [0.2], binsize = 20,title = 'CB')
 
 To plot 1 swath profile with an intermediary point (kink) through the raster 'DEM/NPeru_proj.tif' that is in Lat-Long:
-	>>> swathp(rasterfnme = 'DEM/Nperu_proj.tif',A = [(162374,9299742)], B = [(321829,9399929)],Coord = 'utm',
-	xsteps = [10000], boxwidths = [20000], binsize = 20,title = 'NPeru', multipoints = [True], nbpointsint = [1], pointsdic = {1 : 'C'}, printpointsi = True, C = [(217433,9383481)])
+
+.. code-block:: python
+
+    >>> swathp(rasterfnme = 'DEM/Nperu_proj.tif',A = [(162374,9299742)], B = [(321829,9399929)],Coord = 'utm',xsteps = [10000], boxwidths = [20000], binsize = 20,title = 'NPeru', multipoints = [True], nbpointsint = [1], pointsdic = {1 : 'C'}, printpointsi = True, C = [(217433,9383481)])
 			
 Outputs
 -------
@@ -236,13 +258,9 @@ Contact
 -------
 
 If needed, do not hesitate to contact the author. 
-Please, use `https://isterre.fr/spip.php?page=contact&id_auteur=303`__
-
-__https://isterre.fr/spip.php?page=contact&id_auteur=303
+Please, use `https://isterre.fr/spip.php?page=contact&id_auteur=303 <https://isterre.fr/spip.php?page=contact&id_auteur=303>`_
 
 Licence
 -------
 
-This package is licenced with `CCby-nc`__
-
-__https://creativecommons.org/licenses/by-nc/2.0/
+This package is licenced with `CCby-nc <https://creativecommons.org/licenses/by-nc/2.0/>`_
