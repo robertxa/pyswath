@@ -501,10 +501,12 @@ def main_xa(A, B, xsteps, boxwidth, binsize, title, shpbox, rasterfnme, srs, fac
 		# save data in the folder Data/
 		# Be carefull, there is no header...	
 		print(u'   Saving the data in Data/ ...')
-		np.savetxt('Data/data_' + title + '_' + str(iii) + '.txt',data)
+		header = 'Dist_(m) Alt_(m) Alt_freq'
+		np.savetxt('Data/data_' + title + '_' + str(iii) + '.txt',data, header = header)
 		np.savetxt('Data/datamask_' + title + '_' + str(iii) + '.txt',datamask)
 		np.savetxt('Data/falti_' + title + '_' + str(iii) + '.txt',falti)
-		np.savetxt('Data/statslines_' + title + '_' + str(iii) + '.txt',statslines)
+		header = 'Dist_(m) Min_Alt_(m) Max_Alt_(m)  Median_Alt_(m)  Mean_Alt_(m)'
+		np.savetxt('Data/statslines_' + title + '_' + str(iii) + '.txt',statslines, header = header)
 		
 		# Plot the graph
 		plot_graph(data = data, 

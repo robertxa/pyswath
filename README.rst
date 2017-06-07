@@ -271,7 +271,7 @@ Inside the working directory, the code build several folders :
 Contact
 -------
 
-If needed, do not hesitate to contact the author. 
+If needed, do not hesitate to add a new branch or to contact the author. 
 Please, use `https://isterre.fr/spip.php?page=contact&id_auteur=303 <https://isterre.fr/spip.php?page=contact&id_auteur=303>`_
 
 Licence
