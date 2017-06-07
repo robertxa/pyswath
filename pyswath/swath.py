@@ -36,24 +36,30 @@ for module in modulesNames:
 		# create a global object containging our module
 		globals()[module] = module_obj
 	except ImportError:
-		sys.exit("ERROR : Module " + module + " not present. \n\n Please, install it \
+		#sys.exit(u"ERROR : Module " + module + " not present. \n\n Please, install it \
+		raise ModuleError(u"ERROR : Module " + module + " not present. \n\n Please, install it \
 			      \n\n Edit the source code for more information")
 try:
 	import numpy as np                               # need version 1.7 or higher
 except ImportError:
-	sys.exit("ERROR : Module Numpy not present. \n\n Please, install it \
+	#sys.exit(u"ERROR : Module Numpy not present. \n\n Please, install it \
+	raise ModuleError(u"ERROR : Module Numpy not present. \n\n Please, install it \
 		      \n\n Edit the source code for more information")
 try:
 	from osgeo import gdal, gdalnumeric, ogr, osr    # For GIS operations
 	from osgeo.gdalconst import *
 except ImportError:
-	sys.exit("ERROR : Module osgeo/gdal not present. \n\n Please, install it \
+	#sys.exit(u"ERROR : Module osgeo/gdal not present. \n\n Please, install it \
+	raise ModuleError(u"ERROR : Module osgeo/gdal not present. \n\n Please, install it \
 		      \n\n Edit the source code for more information")
 try:
 	from progress.bar import Bar                     # For a progress bar in the terminal output
 except ImportError:
-	sys.exit("ERROR : Module progress not present. \n\n Please, install it \
+	#sys.exit(u"ERROR : Module progress not present. \n\n Please, install it \
+	raise ModuleError(u"ERROR : Module progress not present. \n\n Please, install it \
 		      \n\n Edit the source code for more information")
+from distutils.version import LooseVersion, StrictVersion
+
 
 from raster_tools import *
 from profiles import *
@@ -219,6 +225,11 @@ def swathp(rasterfnme = None, A = None, B = None, Coord = 'utm', factor = 1000,
 	print('           June 2014-2015      ')
 	print('******************************************')
 	
+	# Check the version of the module Rasterstats : if Rasterstats version is strickly under 0.10, this script crashes
+	# This is because the structure of the miniarray changed from the version 0.12
+	if StrictVersion(rasterstats.__version__)<StrictVersion('0.11'):
+		raise ModuleError(u'ERROR: the module Rasterstats is too old. --> UPDATE to a version >= 0.12')
+	
 	# If the minima input data are not given print the help file
 	if rasterfnme == None or A == None or B == None: help(swathp)
 	
@@ -303,7 +314,7 @@ def swathp(rasterfnme = None, A = None, B = None, Coord = 'utm', factor = 1000,
 				if kkk == 0:
 					shpbox = shpbox[0:-4] + '_sub_' + str(kkk+1) + '.shp'
 				else:
-					shpbox = shpbox[0:-5] + str(kkk+1) + '.shp'
+					shpbox = shpbox[0:-5]+ str(kkk+1) + '.shp'
 				time_st = time.time()
 				statslines, data, xdist = main_xa(A = aa1, B = bb1,
 			                                      xsteps = xstep, 

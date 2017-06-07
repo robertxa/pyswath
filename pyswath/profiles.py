@@ -37,7 +37,8 @@ for module in modulesNames:
 		# create a global object containging our module
 		globals()[module] = module_obj
 	except ImportError:
-		sys.exit(u"ERROR : Module " + module + " not present. \n\n Please, install it \
+		#sys.exit(u"ERROR : Module " + module + " not present. \n\n Please, install it \
+		raise ModuleError(u"ERROR : Module " + module + " not present. \n\n Please, install it \
 			      \n\n Edit the source code for more information")
 from os import path, access, R_OK, mkdir         # W_OK for write permission.
 from rasterstats import raster_stats, zonal_stats             # For stats on rasters
@@ -49,18 +50,21 @@ if speedups.available:
 try:
 	import numpy as np                               # need version 1.7 or higher
 except ImportError:
-	sys.exit(u"ERROR : Module Numpy not present. \n\n Please, install it \
+	#sys.exit(u"ERROR : Module Numpy not present. \n\n Please, install it \
+	raise ModuleError(u"ERROR : Module Numpy not present. \n\n Please, install it \
 		      \n\n Edit the source code for more information")
 try:
 	from osgeo import gdal, gdalnumeric, ogr, osr    # For GIS operations
 	from osgeo.gdalconst import *
 except ImportError:
-	sys.exit(u"ERROR : Module osgeo/gdal not present. \n\n Please, install it \
+	#sys.exit(u"ERROR : Module osgeo/gdal not present. \n\n Please, install it \
+	raise ModuleError(u"ERROR : Module osgeo/gdal not present. \n\n Please, install it \
 		      \n\n Edit the source code for more information")
 try:
 	from progress.bar import Bar                     # For a progress bar in the terminal output
 except ImportError:
-	sys.exit(u"ERROR : Module progress not present. \n\n Please, install it \
+	#sys.exit(u"ERROR : Module progress not present. \n\n Please, install it \
+	raise ModuleError(u"ERROR : Module progress not present. \n\n Please, install it \
 		      \n\n Edit the source code for more information")
 
 from raster_tools import *
@@ -82,11 +86,13 @@ def makeshape(A, B, boxwidth, shp, srs, xstep = 'NULL', nx = 'NULL' , ny = 'NULL
 	   nx = number of points in the direction normal to the main profile
 	   ny = number of points in the direction of the main profile
 	   beta = angle between the parallel and the transect A-B  
+	
 	OUTPUTS:
 	   nx = number of points in the direction normal to the main profile
 	   ny = number of points in the direction of the main profile
 	   beta = angle between the parallel and the transect A-B
 	   shapefile shp
+	
 	USAGE:
 	  nsteps, ny, beta = makeshape(A, B, boxwidth, shpbox2, srs, 
 	                               xstep = xsteps, [nx], [ny], [beta])
@@ -169,8 +175,10 @@ def save_shape(A, B, shp, srs, iii, kkk = None):
 	   srs = coordinate system of the shapefile to create
 	   iii = profile number
 	   kkk = sub-profile number
+	
 	OUTPUTS:
-	   shapefile shp
+	   shapefile shp with the points used in the profile
+	
 	USAGE:
 	   save_shape(A, B, shp, srs)
 	
@@ -178,6 +186,7 @@ def save_shape(A, B, shp, srs, iii, kkk = None):
 
 	## Create the shapefile points
 	shp2 = shp[0:-4] + '_points.shp'
+	#shp2 = 'points_' + shp[6:]
 	print(u'   Saving points defining the profil in the shapefile %s' % shp2)
 	# Now convert it to a shapefile with OGR    
 	driver = ogr.GetDriverByName('Esri Shapefile')
@@ -187,6 +196,8 @@ def save_shape(A, B, shp, srs, iii, kkk = None):
 	# Add one attribute
 	layer.CreateField(ogr.FieldDefn('id', ogr.OFTInteger))
 	layer.CreateField(ogr.FieldDefn('Name', ogr.OFTString))
+	layer.CreateField(ogr.FieldDefn('X', ogr.OFTReal))
+	layer.CreateField(ogr.FieldDefn('Y', ogr.OFTReal))
 	
 	defn = layer.GetLayerDefn()
 	
@@ -202,6 +213,9 @@ def save_shape(A, B, shp, srs, iii, kkk = None):
 		feature.SetField('Name', 'A_' + str(iii))
 	else:
 		feature.SetField('Name', 'A_' + str(iii) + '_' + str(kkk))
+	# add the coordinates in the attribut table
+	feature.SetField('X', A[0])
+	feature.SetField('Y', A[1])	
 	# Save feature
 	layer.CreateFeature(feature)
 	# Cleanup
@@ -220,6 +234,9 @@ def save_shape(A, B, shp, srs, iii, kkk = None):
 		feature.SetField('Name', 'B_' + str(iii))
 	else:
 		feature.SetField('Name', 'B_' + str(iii) + '_' + str(kkk))
+	# add the coordinates in the attribut table
+	feature.SetField('X', B[0])
+	feature.SetField('Y', B[1])
 	# Save feature
 	layer.CreateFeature(feature)
 	# Cleanup
@@ -246,10 +263,12 @@ def findline(A, B, Xi, Xii, inc, i, nsteps, dist):
 	   i = step's number
 	   nsteps = total number of steps
 	   dist = nsteps-Array of distance along the profile.
+	
 	OUTPUTS:
 	   Xi = coordinates of the first point of the line updated for the next step
 	   Xii = coordinates of the second point of the line updated for the next step
 	   dist = nsteps-Array of distance along the profile updated
+	
 	USAGE:
 	   Xi, Xii, dist = findline(A, B, Xi, Xii, inc, i, nsteps, dist)
 	
@@ -308,8 +327,10 @@ def main_xa(A, B, xsteps, boxwidth, binsize, title, shpbox, rasterfnme, srs, fac
 	   multipoints = flag to set a profile along a multiline with different points
 	   nbpointsmulti = if multipoints, number of intermediary poitns
 	   kkk = rank of the intermediary points
+	
 	OUTPUTS:
 	   no variables
+	
 	USAGE:
 	   main_xa(A, B, xsteps, boxwidth, binsize, title, shpbox, rasterfnme, srs, factor, [iii])
 	
@@ -351,7 +372,7 @@ def main_xa(A, B, xsteps, boxwidth, binsize, title, shpbox, rasterfnme, srs, fac
 	# Save and close everything
 	ds = layer = feat = geom = None
 	# Build the box shapefile around the main line
-	shpbox2 = shpbox[0:-4] + str(iii + 1) + '.shp'	
+	shpbox2 = shpbox[0:-4] + '_'  + str(iii + 1) + '.shp'	
 	# build the general shapefile from the [AB] line
 	# and calcul the number of steps between A and B :
 	nsteps, ny, beta = makeshape(A, B, boxwidth, shpbox2, srs, xstep = xsteps)

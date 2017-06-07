@@ -38,19 +38,22 @@ for module in modulesNames:
 		# create a global object containging our module
 		globals()[module] = module_obj
 	except ImportError:
-		sys.exit(u"ERROR : Module " + module + " not present. \n\n Please, install it \
+		#sys.exit(u"ERROR : Module " + module + " not present. \n\n Please, install it \
+		raise ModuleError(u"ERROR : Module " + module + " not present. \n\n Please, install it \
 			      \n\n Edit the source code for more information")
 from os import path, access, R_OK, mkdir         # W_OK for write permission.
 try:
 	import numpy as np                               # need version 1.7 or higher
 except ImportError:
-	sys.exit(u"ERROR : Module Numpy not present. \n\n Please, install it \
+	#sys.exit(u"ERROR : Module Numpy not present. \n\n Please, install it \
+	raise ModuleError(u"ERROR : Module Numpy not present. \n\n Please, install it \
 		      \n\n Edit the source code for more information")
 try:
 	from osgeo import gdal, gdalnumeric, ogr, osr    # For GIS operations
 	from osgeo.gdalconst import *
 except ImportError:
-	sys.exit(u"ERROR : Module osgeo/gdal not present. \n\n Please, install it \
+	#sys.exit(u"ERROR : Module osgeo/gdal not present. \n\n Please, install it \
+	raise ModuleError(u"ERROR : Module osgeo/gdal not present. \n\n Please, install it \
 		      \n\n Edit the source code for more information")
 
 from raster_tools import *
@@ -76,8 +79,19 @@ def checkfiles(rasterfnme, A, B, xsteps, boxwidths, shpbox, title,
 		- synthetic,
 		- multipoints, 
 		- remNoData
+	
 	OUTPUTS
-		-
+		- xsteps: 
+		- boxwidths: 
+		- Coord: 
+		- srs: 
+		- dst_filename: 
+		- a, b: 
+		- a_utm, b_utm: 
+		- test_N:
+		- shpbox: 
+		- ulx, lrx, lry, uly: 
+		- projdone:
 		
 	"""
 	# Check if the DEM exists
@@ -154,34 +168,6 @@ def checkfiles(rasterfnme, A, B, xsteps, boxwidths, shpbox, title,
 	if remNoData:
 		# Check if there are no data values
 		srcband = rasterdata.GetRasterBand(1)
-		#print srcband.GetNoDataValue()
-		###### with rasterio if working on your machine
-		#with rasterio.drivers():
-		#	with rasterio.open(rasterfnme) as src:
-		#		
-		#		kwargs = src.meta
-		#		#print kwargs
-		#		#kwargs['nodata'] = nodatav
-		#		kwargs.update(nodata = nodatav)
-		#		
-		#		src = None
-		#		#with rasterio.open(rasterfnme, 'w', **kwargs) as dst:
-		#		#	dst.write()
-		#		
-		#		#print src.meta['nodata']
-		#		#print src.nodata
-		###### with gdal... always working, by tricky... Pb today !!!	
-		#if srcband.GetNoDataValue() == None:
-		#	rasterdata = None
-		#	with rasterio.drivers():
-		#		with rasterio.open(rasterfnme) as src:
-		#			kwargs = src.meta
-		#			kwargs['nodata'] = nodatav
-		#	#rasterdata = gdal.Open(rasterfnme, GA_Update)
-		#	#srcband = rasterdata.GetRasterBand(1)
-		#	#srcband.SetNoDataValue(nodatav)
-		#	#rasterdata = None
-		#	rasterdata = gdal.Open(rasterfnme, GA_ReadOnly)
 		# Get the caracteristics of the DEM
 		dst_fnme = rasterfnme[0:-4] + '_fill.tif'
 		if path.isfile(dst_fnme):

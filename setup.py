@@ -22,7 +22,7 @@ setup(name='pyswath',
 	license='CCby-nc',
 	packages=find_packages(),
 	install_requires=[
-	      'rasterstats',
+	      'rasterstats>=0.11.0',
 	      'shapely',
 	      'numpy',
 	      'utm',

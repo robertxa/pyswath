@@ -5,7 +5,8 @@ This code is to built topographic swath profiles through a region, with a plot o
 
 It uses a DEM that is projected in UTM (best input), but will also work with geographic coordinates (lat-long).
 
-This module may contain numerous bugs, and could probably be ameliorate and/or optimized. If you have any comments, do not hesitate to contact the author.
+This module may contain numerous bugs, and could probably be ameliorate and/or optimized. If you have any comments, do not hesitate to add a new branch or to contact the author.
+To know the history, please check the file History.txt
 
 Install
 -------
@@ -16,13 +17,15 @@ To install it :
 
 	pip install pyswath
 
+The module has been written and tested with Python 2.7, but not with Python 3.
+
 Dependencies
 ------------
-This code needs the following python modules, you may install them before the installation of the pyswath module:
+This code needs the following python modules and their dependencies, you may install them before the installation of the **pyswath** module:
 	- math
 	- copy
 	- utm
-	- rasterstats
+	- rasterstats>=0.11
 	- rasterio
 	- shapely
 	- numpy
@@ -46,7 +49,12 @@ To plot a swath profile [A,B] through the raster 'DEM/dem.tif':
 
 .. code-block:: python
 
-    >>> swathp(rasterfnme = 'DEM/dem.tif',A = [(-78.4,-9.3)], B = [(-77.5,-8.5)],Coord = 'latlong',xsteps = [0.02], boxwidths = [0.2], binsize = 20,title = 'CB')
+    >>> swathp(rasterfnme = 'DEM/dem.tif',A = [(-78.4,-9.3)], B = [(-77.5,-8.5)],Coord = 'latlong', xsteps = [0.02], boxwidths = [0.2], binsize = 20,title = 'CB')
+
+.. warnings::
+
+	Be careful, the units used for the points definition should be the same than for the DEM, and also for xsteps and boxwidth !! 
+	Everything in degrees if Coord = LatLong, and everything in meters if Coord = utm !!
 
 Options/inputs
 --------------
@@ -204,8 +212,14 @@ To get help in your (i)python environnement:
 
 .. code-block:: python
 
-	>>> help(swath)
-	
+	>>> help(swathp)
+
+or simply:
+
+.. code-block:: python
+
+	>>> swathp()
+
 Examples
 --------
 
@@ -213,24 +227,24 @@ To plot a swath profile [A,B] through the raster 'DEM/dem.tif' that is in lat-lo
 
 .. code-block:: python
 
-    >>> swathp(rasterfnme = 'DEM/dem.tif',A = [(-78.4,-9.3)], B = [(-77.5,-8.5)],Coord = 'latlong', xsteps = [0.02], boxwidths = [0.2], binsize = 20,title = 'CB')
+    >>> swathp(rasterfnme = 'DEM/dem.tif',A = [(-78.4,-9.3)], B = [(-77.5,-8.5)], Coord = 'latlong', xsteps = [0.02], boxwidths = [0.2], binsize = 20, title = 'CB')
 
 To plot a swath profile through the raster 'DEM/Nperu_proj.tif' that is projected to UTM zone 18S:
 
 .. code-block:: python
-    >>> swathp(rasterfnme = 'DEM/Nperu_proj.tif',A = [(162374,9299742)], B = [(321829,9399929)],Coord = 'utm',xsteps = [10000], boxwidths = [20000], binsize = 20,title = 'NPeru')
+    >>> swathp(rasterfnme = 'DEM/Nperu_proj.tif',A = [(162374,9299742)], B = [(321829,9399929)], Coord = 'utm',xsteps = [10000], boxwidths = [20000], binsize = 20, title = 'NPeru')
 	
 To plot 2 swath profiles though the raster 'DEM/dem.tif' that is in lat-long (not projected):
 
 .. code-block:: python
 
-    >>> swathp(rasterfnme = 'DEM/dem.tif',A = [(-78.4,-9.3),(-78.4,-8.0)], B = [(-77.5,-8.5),(-76.0,-9.2)],Coord = 'latlong',xsteps = [0.02], boxwidths = [0.2], binsize = 20,title = 'CB')
+    >>> swathp(rasterfnme = 'DEM/dem.tif',A = [(-78.4,-9.3),(-78.4,-8.0)], B = [(-77.5,-8.5),(-76.0,-9.2)], Coord = 'latlong', xsteps = [0.02], boxwidths = [0.2], binsize = 20, title = 'CB')
 
 To plot 1 swath profile with an intermediary point (kink) through the raster 'DEM/NPeru_proj.tif' that is in Lat-Long:
 
 .. code-block:: python
 
-    >>> swathp(rasterfnme = 'DEM/Nperu_proj.tif',A = [(162374,9299742)], B = [(321829,9399929)],Coord = 'utm',xsteps = [10000], boxwidths = [20000], binsize = 20,title = 'NPeru', multipoints = [True], nbpointsint = [1], pointsdic = {1 : 'C'}, printpointsi = True, C = [(217433,9383481)])
+    >>> swathp(rasterfnme = 'DEM/Nperu_proj.tif',A = [(162374,9299742)], B = [(321829,9399929)], Coord = 'utm', xsteps = [10000], boxwidths = [20000], binsize = 20, title = 'NPeru', multipoints = [True], nbpointsint = [1], pointsdic = {1 : 'C'}, printpointsi = True, C = [(217433,9383481)])
 			
 Outputs
 -------

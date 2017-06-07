@@ -15,7 +15,8 @@ for module in modulesNames:
 		# create a global object containging our module
 		globals()[module] = module_obj
 	except ImportError:
-		sys.exit(u"ERROR : Module " + module + " not present. \n\n Please, install it \
+		#sys.exit(u"ERROR : Module " + module + " not present. \n\n Please, install it \
+		raise ModuleError(u"ERROR : Module " + module + " not present. \n\n Please, install it \
 			      \n\n Edit the source code for more information")
 from os import path, access, R_OK, mkdir         # W_OK for write permission.
 from rasterstats import raster_stats, zonal_stats             # For stats on rasters
@@ -27,13 +28,15 @@ if speedups.available:
 try:
 	import numpy as np                               # need version 1.7 or higher
 except ImportError:
-	sys.exit(u"ERROR : Module Numpy not present. \n\n Please, install it \
+	#sys.exit(u"ERROR : Module Numpy not present. \n\n Please, install it \
+	raise ModuleError(u"ERROR : Module Numpy not present. \n\n Please, install it \
 		      \n\n Edit the source code for more information")
 try:
 	from osgeo import gdal, gdalnumeric, ogr, osr    # For GIS operations
 	from osgeo.gdalconst import *
 except ImportError:
-	sys.exit(u"ERROR : Module osgeo/gdal not present. \n\n Please, install it \
+	#sys.exit(u"ERROR : Module osgeo/gdal not present. \n\n Please, install it \
+	raise ModuleError(u"ERROR : Module osgeo/gdal not present. \n\n Please, install it \
 		      \n\n Edit the source code for more information")
 ###############################################################################
 
@@ -46,8 +49,10 @@ def calc_length(A,B):
 	INPUTS:
 	   A = Coordinates of the point A
 	   B = Coordinates of the point B
+	
 	OUTPUTS:
 	   calc_lengthm = length between A and B in m
+	
 	USAGE:
 	   calc_lengthm = calc_length(A,B)
 	"""
@@ -66,8 +71,10 @@ def bearing(XA,YA,XB,YB):
 	INPUTS:
 	   XA, YA = A coordinates in lat-long
 	   XB, YB = B coordinates in lat-long
+	
 	OUTPUTS:
 	   angle = bearing from A to B
+	
 	USAGE:
 	   angle = bearing(XA,YA,XB,YB)
 	   
@@ -100,9 +107,11 @@ def project_points(A, B, srs, A_utm, B_utm, test_N, iii, ggg):
 	   test_N = Boolean that tells if the points are north or south
 	   iii = iteration number (rank in the A list)
 	   ggg = iteration number (rank in the B list)
+	
 	OUTPUTS:
 	   A_utm, B_utm = Output projected coordinates
 	   srs_new = new projection system
+	
 	USAGE:
 	   A_utm, B_utm, srs_new = project_points(A, B, A_utm, B_utm, test_N, iii, ggg)
 	
@@ -120,13 +129,13 @@ def project_points(A, B, srs, A_utm, B_utm, test_N, iii, ggg):
 		if iii == 0:
 			print(u'WARNING : The profile is over two UTM zones ! \n'
 			      u'          I am choosing one of them : UTM%i' % utm_zone)	
-			print(u'          If you get this warning, you may check if on a GIS software if '
-			      u'          the computed profile is at the right place on the DEM. \n'
-			      u'          Do not be surprised if you get an error in the calcul of statistics, '
-			      u'          that means that your projected profile is out of the bounds of the projected DEM. \n'
-			      u'          To solve the problem, use as entry :\n'
-			      u'               - The projected DEM, \n'
-			      u'               - Coordinates of points that you extract on the projected DEM!')
+			print(u'          If you get this warning, you may check if on a GIS software if')
+			print(u'          the computed profile is at the right place on the DEM.')
+			print(u'          Do not be surprised if you get an error in the calcul of statistics,')
+			print(u'          that means that your projected profile is out of the bounds of the projected DEM.')
+			print(u'          To solve the problem, use as entry :')
+			print(u'               - The projected DEM,')
+			print(u'               - Coordinates of points that you extract on the projected DEM!')
 		# Define the new spatial reference
 		srs_new = osr.SpatialReference()
 		# Set the projection to UTM with the zone that correspond to the datapoints
@@ -147,6 +156,8 @@ def project_points(A, B, srs, A_utm, B_utm, test_N, iii, ggg):
 		srs_new = osr.SpatialReference()
 		# Set the projection to UTM with the zone that correspond to the datapoints
 		srs_new.SetUTM(utm_zone, test_N)
+	
+	print(u'Projection to UTM zone %i' % utm_zone)
 		
 	#return A_utm[iii, 0], A_utm[iii, 1], B_utm[iii, 0], B_utm[iii, 1], srs_new
 	return A_utm, B_utm, srs_new
@@ -167,11 +178,13 @@ def raster_projection(rasterfnme, rasterdata, src_geotrans,  srs, dst_filename, 
 	   kmdeg = factor to convert from degrees to km
 	   mem = tells if the output raster should be stored in a file ( = 'NULL')
 	          or in memory (= 'MEMORY')
+	
 	OUTPUTS:
 	   if mem = 'NULL', no variable outpût, only a projected raster is recorded in a new file
 	   if mem = 'MEMORY',
 	          dst = Raster reprojected in Lat Long, stored in memory
 	          out_srs  = coordinate system
+	
 	USAGE:
 	   to project a raster in a new tiff file:
 	       raster_projection(rasterfnme, rasterdata, srs, dst_filename, srs_new, mem = 'NULL')
@@ -194,7 +207,7 @@ def raster_projection(rasterfnme, rasterdata, src_geotrans,  srs, dst_filename, 
 		# Test if raster already exists
 		if path.isfile(dst_filename):
 			# If yes, do not do the projection, skip it
-			print(u'The raster %s has already be prejected, I will not do it another time, '
+			print(u'The raster %s has already be projected, I will not do it another time, '
 			      u'I am thus using %s' % (rasterfnme, dst_filename))
 		else:
 			#print rasterdata.GetMetadata()
@@ -279,6 +292,7 @@ def project_raster(rasterfnme, rasterdata, src_geotrans, srs, A, B, Coord, xstep
  		- Coord : Set the coordinate system in which are given A and B
  		- xstep = size of the x stepping in the original raster metric
  		- boxwidth : y-width in the original raster metric of the box
+ 	
  	OUTPUT:
  		- xstep = size of the x stepping in the projected raster metric
  		- boxwidth = y-width in the projected raster metric of the box
@@ -286,6 +300,7 @@ def project_raster(rasterfnme, rasterdata, src_geotrans, srs, A, B, Coord, xstep
  		- srs = new projected system
  		- dst_filename
  		- a_utm, b_utm = Coordinates of the points A and B transformed in UTM
+ 	
  	USAGE:
  	    xstep, boxwidth, Coord, srs, dst_filename, a_utm, b_utm =
  	       project_raster(rasterfnme, rasterdata, src_geotrans, srs, A, B, Coord, xstep, boxwidth)
@@ -396,6 +411,8 @@ def removeNoData(inraster, dst_filename = 'None', mask = 'default', NoData = 'No
 	
 	OUTPUTS:
 		newraster = cleaned raster data
+		
+	NEEDS strong improvements......
 	"""
 	
 	print(u'Cleanning the DEM, removing holes...')
@@ -416,7 +433,8 @@ def removeNoData(inraster, dst_filename = 'None', mask = 'default', NoData = 'No
 		print(u'gdal.FillNodata() not available.  You are likely using "old gen"')
 		print(u'bindings or an older version of the next gen bindings.')
 		print(u'')
-		sys.exit(1)
+		raise ModuleError(u"ERROR : Problem with gdal.FillNodata.") 
+		#sys.exit(1)
 		
 	srcband = inraster.GetRasterBand(src_band)
 	

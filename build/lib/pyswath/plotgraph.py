@@ -15,18 +15,21 @@ for module in modulesNames:
 		# create a global object containging our module
 		globals()[module] = module_obj
 	except ImportError:
-		sys.exit(u"ERROR : Module " + module + " not present. \n\n Please, install it \
+		#sys.exit(u"ERROR : Module " + module + " not present. \n\n Please, install it \
+		raise ModuleError(u"ERROR : Module " + module + " not present. \n\n Please, install it \
 			      \n\n Edit the source code for more information")
 try:
 	import numpy as np                               # need version 1.7 or higher
 except ImportError:
-	sys.exit(u"ERROR : Module Numpy not present. \n\n Please, install it \
+	#sys.exit(u"ERROR : Module Numpy not present. \n\n Please, install it \
+	raise ModuleError(u"ERROR : Module Numpy not present. \n\n Please, install it \
 		      \n\n Edit the source code for more information")
 try:
 	import matplotlib.pyplot as plt                  # module to plot figures
 	from matplotlib import cm
 except ImportError:
-	sys.exit(u"ERROR : Module matplotlib not present. \n\n Please, install it \
+	#sys.exit(u"ERROR : Module matplotlib not present. \n\n Please, install it \
+	raise ModuleError(u"ERROR : Module matplotlib not present. \n\n Please, install it \
 		      \n\n Edit the source code for more information")
 
 ############################################################################
@@ -48,8 +51,10 @@ def plot_graph(data, datamask, statslines, title, xdist, xstep, boxwidth, factor
 	   corrnan = Flag to correct (True) or no (False) the graph from the Nan values
 	   synthetic = True if synthetic dem
 	   xpoint = distance along profile of the intermediary points if it exists
+	
 	OUTPUTS:
 	   Graph in pdf
+	
 	USAGE:
 	   plot_graph(data, datamask, statslines, title, xdist, factor)
 	
@@ -144,7 +149,7 @@ def plot_graph(data, datamask, statslines, title, xdist, xstep, boxwidth, factor
 	plt.xlabel(u'Distance along profile (km)')
 	plt.ylabel(u'Altitude (m)')
 	plt.legend(loc='best', numpoints = 1)
-	plt.title(title + ' ' + str(iii + 1) + u' (xstep = ' + str(round(xstep,1)) + u' m; boxwidth = ' + str(round(boxwidth,1)) + u' m)')
+	plt.title(title + ' ' + str(iii + 1) + u' ($\mathit{xstep =} $' + str(round(xstep / 1000,2)) + u' km; boxwidth = ' + str(round(boxwidth / 1000,0)) + u' km)')
 	plt.savefig("Graphs/" + title + '_transect_' + str(iii + 1) + '.pdf')
 
 	plt.close()

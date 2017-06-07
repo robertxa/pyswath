@@ -1,0 +1,20 @@
+History changes of the python module pyswath
+
+
+0.1.2: 2017/06/06
+	- Add points coordinates in the point shapefile
+	- Change the name of the point shapefile
+	- Tell the user which projection is used for the projected DEM and the points
+	- Update README
+	- Update setup.py
+	- Add in the function swathp a check for the version of the module Rasterstats
+	- Clean the function checkfiles from unused comments
+	- Remove all sys.exit and replace them by raise ModuleError
+	- Change the units in the title of the graph : m --> km
+	- Add the history in a new file History.txt
+	- Update MANIFEST.in
+	- Update version
+
+
+0.1.1: 2017/02/14-17
+	- initial release
