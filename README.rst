@@ -51,7 +51,7 @@ To plot a swath profile [A,B] through the raster 'DEM/dem.tif':
 
     >>> swathp(rasterfnme = 'DEM/dem.tif',A = [(-78.4,-9.3)], B = [(-77.5,-8.5)],Coord = 'latlong', xsteps = [0.02], boxwidths = [0.2], binsize = 20,title = 'CB')
 
-.. warnings::
+.. warning::
 
 	Be careful, the units used for the points definition should be the same than for the DEM, and also for xsteps and boxwidth !! 
 	Everything in degrees if Coord = LatLong, and everything in meters if Coord = utm !!
