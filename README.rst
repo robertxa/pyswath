@@ -254,7 +254,11 @@ To plot a swath profile [A,B] through the raster 'DEM/dem.tif' that is in lat-lo
 
     >>> swathp(rasterfnme = 'DEM/dem.tif',A = [(-78.4,-9.3)], B = [(-77.5,-8.5)], Coord = 'latlong', xsteps = [0.02], boxwidths = [0.2], binsize = 20, title = 'CB')
 
-![The previous line permits to build the graph :](https://github.com/robertxa/pyswath/tree/master/pyswath/DEMswath2.png?raw=true)
+The previous line permits to build the graph :
+
+.. image:: https://github.com/robertxa/pyswath/tree/master/pyswath/DEMswath2.png?raw=true
+   :scale: 100 %
+   :align: center
 
 To plot a swath profile through the raster 'DEM/Nperu_proj.tif' that is projected to UTM zone 18S:
 
