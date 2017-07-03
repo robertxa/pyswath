@@ -258,7 +258,6 @@ The previous line permits to build the graph :
 
 .. figure:: https://github.com/robertxa/pyswath/tree/master/pyswath/DEM+swath2.png
 	:align: center
-	:alt: zones elevation
 
 To plot a swath profile through the raster 'DEM/Nperu_proj.tif' that is projected to UTM zone 18S:
 
