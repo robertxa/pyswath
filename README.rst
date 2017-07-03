@@ -124,11 +124,12 @@ Options/inputs are (option_names):
 					ex: ``boxwidths = [2000]`` (here in m)
 				
 				Default ``boxwidths = [20000]``
+	
 	7. binsize: altitude binsize (for the altitude frequency plot) in the same units than the DEM (m if m; km if km; deg if deg)
 				
 		ex: ``binsize = 100``(in m)
 				
-	Default ``binsiez = 20``
+		Default ``binsize = 20``
 	
 	8. title: title of the graphic
 			The name will also be used to define the name:
@@ -138,8 +139,10 @@ Options/inputs are (option_names):
 					ex: ``title = 'Synth-Essai'``
 			
 			Default ``title = 'Swath_profile'``
+	
 	9. shpbox: Name of the shapefile in which we extract the profile
 			Default: ``shpbox = 'shpbox.shp'``
+	
 	10. sizeplotx, sizeploty: size of the plot.
 							Standard size is ``sizeplotx = 8`` and ``sizeploty = 6``
 							If you want to use the default/automatic setting, just give the value None to the variables
@@ -155,32 +158,41 @@ Options/inputs are (option_names):
 
 								Default: ``densitymax = None``
 									
-	12. remNoData: Flag to remove (``True``) or not (``False``) the NoData values from a DEM
+	12. ylimmin, ylimmax: set the range of the Y axis in the graph.
+						  Set it None, if you want to keep the automatic settings
+						  
+						  Default: ``ylimmin = None``
+						  
+						  Default: ``ylimmax = None``
+	
+	
+	13. remNoData: Flag to remove (``True``) or not (``False``) the NoData values from a DEM
 					2015/08 : does not work very well, avoid it for the moment.
 					
 					Default: ``remNoData = False``
 					
-	13. corrnan: Flag to correct (``True``) or no (``False``) the graph from the Nan values
+	14. corrnan: Flag to correct (``True``) or no (``False``) the graph from the Nan values
 				Be careful, it replace the NaN values with the min value of the frequency
 					
 				Default: ``corrnan = False``
 					
-	14. nodatav: value of the NoData
+	15. nodatav: value of the NoData
 				Default: ``nodatav = 0.0``
-	15. multipoints: Multipoints section, Flag to set a profil with multipoints
+	
+	16. multipoints: Multipoints section, Flag to set a profil with multipoints
 						- [False] = only two points (Default)
 						- [True] = more than two points
 						- [True, False,...] if several transects, i.e. one boolean for each transect
 					
 							ex: ``multipoints = [False]``
 					
-	16. nbpointsint: Multipoints section, number of intermediary points in the profile
+	17. nbpointsint: Multipoints section, number of intermediary points in the profile
 					If different profiles : nbpointsint = [...,3,2,1]
 					Choose the order of the profiles with a decreasing number of intermediary points to avoid error in the code
 					
 						ex: ``nbpointsint = [0]``
 					
-	17. pointint: C,D,...: Multipoints section, intermediary points in the profile, given from A to B
+	18. pointint: C,D,...: Multipoints section, intermediary points in the profile, given from A to B
 				Be aware of the order !
 				
 					Give the name C for the 1st intermediary point (C = [(-78.255,-9.713),(,),...])
@@ -191,18 +203,18 @@ Options/inputs are (option_names):
 					
 					...
 					
-	18. pointsdic: Multipoints section :
+	19. pointsdic: Multipoints section :
 					dictionnary to assign a number to the different points. It should contain the same number of lines than the number of points
 					
 						ex: ``pointsdic = {1 : C, 2 : D, 3 : E, 4 : F, ... : ...}``
 					
-	19. printpointsi: Multipoints section, Flag to print (True) or not (False) the position of the intermediary points on the profile
+	20. printpointsi: Multipoints section, Flag to print (True) or not (False) the position of the intermediary points on the profile
 						
 					ex: ``printpointsi = True``
 						
 				Default ``printpointsi = False``
 					
-	20. idensity: Flag to plot the density (``True``) or not (Default, ``False``)
+	21. idensity: Flag to plot the density (``True``) or not (Default, ``False``)
 
 
 Help files

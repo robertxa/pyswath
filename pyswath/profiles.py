@@ -304,6 +304,7 @@ def findline(A, B, Xi, Xii, inc, i, nsteps, dist):
 
 def main_xa(A, B, xsteps, boxwidth, binsize, title, shpbox, rasterfnme, srs, factor, 
             sizeplotx = None, sizeploty = None, densitymin = None, densitymax = None,
+            ylimmin = None, ylimmax = None,
             corrnan = False, synthetic = False, iii = None, 
             multipoints = None, nbpointsint = None, kkk = None):
 	"""
@@ -523,6 +524,8 @@ def main_xa(A, B, xsteps, boxwidth, binsize, title, shpbox, rasterfnme, srs, fac
 		           sizeploty = sizeploty,
 		           densitymin = densitymin,
 		           densitymax = densitymax,
+		           ylimmin = ylimmin,
+		           ylimmax = ylimmax,
 	    	       synthetic = synthetic)
 	# Clean the workspace
 	clean()

@@ -36,7 +36,7 @@ except ImportError:
 	
 def plot_graph(data, datamask, statslines, title, xdist, xstep, boxwidth, factor, iii, corrnan, \
                sizeplotx = None, sizeploty = None, densitymin = None, densitymax = None,
-               synthetic = False, xpoint = None):
+               ylimmin = None, ylimmax = None, synthetic = False, xpoint = None):
 	"""
 	Function to plot swath profile
 	
@@ -143,13 +143,24 @@ def plot_graph(data, datamask, statslines, title, xdist, xstep, boxwidth, factor
 			plt.axvline(x = xpoint[jjj]/factor, ls = '--', linewidth = 1, color = '0.75')#, label = 'STDS position')
 	
 	#plt.ylim(0,statslines[:,2].max() + 500)
-	plt.ylim(0,statslines[:,2].max())
+	if ylimmax != None:
+		if ylimmin != None:
+			plt.ylim(ylimmin, ylimmax)
+		else:
+			plt.ylim(0, ylimmax)
+	else:
+		if ylimmin != None:
+			plt.ylim(ylimmin, statslines[:,2].max())
+		else:
+			plt.ylim(0, statslines[:,2].max())
+	
 	plt.xlim(0,xdist)
 	
 	plt.xlabel(u'Distance along profile (km)')
 	plt.ylabel(u'Altitude (m)')
 	plt.legend(loc='best', numpoints = 1)
-	plt.title(title + ' ' + str(iii + 1) + u' (Xstep = ' + str(round(xstep / 1000,2)) + u' km; Boxwidth = ' + str(round(boxwidth / 1000,0)) + u' km)')
+	#plt.title(title + ' ' + str(iii + 1) + u' (Xstep = ' + str(round(xstep / 1000,2)) + u' km; Boxwidth = ' + str(round(boxwidth / 1000,0)) + u' km)')
+	plt.title(title + ' ' + str(iii + 1) + u' (Xstep = ' + str(round(xstep / factor,2)) + u' km; Boxwidth = ' + str(round(boxwidth / factor,0)) + u' km)')
 	plt.savefig("Graphs/" + title + '_transect_' + str(iii + 1) + '.pdf')
 
 	plt.close()

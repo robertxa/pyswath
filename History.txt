@@ -1,5 +1,9 @@
 History changes of the python module pyswath
 
+0.1.4: 2017/06/07
+	- Add the option to choose the range of the vertical (Y) axis of the graph
+	- Bug fixed in the Title generation
+
 0.1.3: 2017/06/07
 	- Add an header to the output text files data_XX and falti_XX
 
