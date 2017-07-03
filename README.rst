@@ -17,6 +17,19 @@ To install it :
 
 	pip install pyswath
 
+To update it :
+
+.. code-block:: bash
+
+	pip install -U pyswath
+
+If during the update you get a problem with the update of a dependency, you may try :
+
+.. code-block:: bash
+
+	pip install -U --no-deps pyswath
+
+
 The module has been written and tested with Python 2.7, but not with Python 3.
 
 Dependencies
@@ -240,6 +253,12 @@ To plot a swath profile [A,B] through the raster 'DEM/dem.tif' that is in lat-lo
 .. code-block:: python
 
     >>> swathp(rasterfnme = 'DEM/dem.tif',A = [(-78.4,-9.3)], B = [(-77.5,-8.5)], Coord = 'latlong', xsteps = [0.02], boxwidths = [0.2], binsize = 20, title = 'CB')
+
+The previous line permits to build the graph : 
+
+.. figure:: https://github.com/robertxa/pyswath/tree/master/pyswath/DEM+swath2.png
+	:align: center
+	:alt: zones elevation
 
 To plot a swath profile through the raster 'DEM/Nperu_proj.tif' that is projected to UTM zone 18S:
 
