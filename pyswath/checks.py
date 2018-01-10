@@ -183,8 +183,8 @@ def checkfiles(rasterfnme, A, B, xsteps, boxwidths, shpbox, title,
 	# Check if xteps is compatible with the DEM resolution
 	for iii in range (0, len(xsteps)):
 		if min(geotransform[1], geotransform[5]) >= xsteps[iii]:
-			warnings.warnings(u'Xstep smaller that the pixel size of the DEM ! \n \
-	    		              Xstep is set to 3 times the pixel size')
+			warnings.warn(u'Xstep smaller that the pixel size of the DEM ! \n \
+	    		            Xstep is set to 3 times the pixel size')
 			xsteps[iii] = max(geotransform[1], geotransform[5]) * 3
 	# xtep is now OK for processing
 	

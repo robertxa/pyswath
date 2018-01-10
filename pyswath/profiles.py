@@ -29,7 +29,7 @@ from __future__ import division
 
 ## Import Python modules
 ## I have problems to install rasterio : it does not find gdal libraries... from kingchaos
-modulesNames = ['sys', 'math', 'os', 'utm', 'warnings', 'shapely']
+modulesNames = ['sys', 'math', 'os', 'utm', 'shapely']
 for module in modulesNames:
 	try:
 		# because we want to import using a variable, do it this way

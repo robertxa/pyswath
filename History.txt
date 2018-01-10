@@ -1,4 +1,7 @@
 History changes of the python module pyswath
+0.1.5: 2018/01/10
+	- bug fixed with the warnings
+	- clean the code by removing the warnings module where it was unused
 
 0.1.4: 2017/06/07
 	- Add the option to choose the range of the vertical (Y) axis of the graph
