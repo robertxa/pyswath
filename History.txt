@@ -1,4 +1,7 @@
 History changes of the python module pyswath
+1.1.1: 2018/01/17
+	- bug fixed with ImportError
+
 0.1.5: 2018/01/10
 	- bug fixed with the warnings
 	- clean the code by removing the warnings module where it was unused

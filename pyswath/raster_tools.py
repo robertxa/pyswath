@@ -16,7 +16,7 @@ for module in modulesNames:
 		globals()[module] = module_obj
 	except ImportError:
 		#sys.exit(u"ERROR : Module " + module + " not present. \n\n Please, install it \
-		raise ModuleError(u"ERROR : Module " + module + " not present. \n\n Please, install it \
+		raise ImportError(u"ERROR : Module " + module + " not present. \n\n Please, install it \
 			      \n\n Edit the source code for more information")
 from os import path, access, R_OK, mkdir         # W_OK for write permission.
 from rasterstats import raster_stats, zonal_stats             # For stats on rasters
@@ -29,14 +29,14 @@ try:
 	import numpy as np                               # need version 1.7 or higher
 except ImportError:
 	#sys.exit(u"ERROR : Module Numpy not present. \n\n Please, install it \
-	raise ModuleError(u"ERROR : Module Numpy not present. \n\n Please, install it \
+	raise ImportError(u"ERROR : Module Numpy not present. \n\n Please, install it \
 		      \n\n Edit the source code for more information")
 try:
 	from osgeo import gdal, gdalnumeric, ogr, osr    # For GIS operations
 	from osgeo.gdalconst import *
 except ImportError:
 	#sys.exit(u"ERROR : Module osgeo/gdal not present. \n\n Please, install it \
-	raise ModuleError(u"ERROR : Module osgeo/gdal not present. \n\n Please, install it \
+	raise ImportError(u"ERROR : Module osgeo/gdal not present. \n\n Please, install it \
 		      \n\n Edit the source code for more information")
 ###############################################################################
 

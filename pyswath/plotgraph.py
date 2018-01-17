@@ -16,20 +16,20 @@ for module in modulesNames:
 		globals()[module] = module_obj
 	except ImportError:
 		#sys.exit(u"ERROR : Module " + module + " not present. \n\n Please, install it \
-		raise ModuleError(u"ERROR : Module " + module + " not present. \n\n Please, install it \
+		raise ImportError(u"ERROR : Module " + module + " not present. \n\n Please, install it \
 			      \n\n Edit the source code for more information")
 try:
 	import numpy as np                               # need version 1.7 or higher
 except ImportError:
 	#sys.exit(u"ERROR : Module Numpy not present. \n\n Please, install it \
-	raise ModuleError(u"ERROR : Module Numpy not present. \n\n Please, install it \
+	raise ImportError(u"ERROR : Module Numpy not present. \n\n Please, install it \
 		      \n\n Edit the source code for more information")
 try:
 	import matplotlib.pyplot as plt                  # module to plot figures
 	from matplotlib import cm
 except ImportError:
 	#sys.exit(u"ERROR : Module matplotlib not present. \n\n Please, install it \
-	raise ModuleError(u"ERROR : Module matplotlib not present. \n\n Please, install it \
+	raise ImportError(u"ERROR : Module matplotlib not present. \n\n Please, install it \
 		      \n\n Edit the source code for more information")
 
 ############################################################################
