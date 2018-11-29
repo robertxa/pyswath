@@ -1,4 +1,11 @@
 History changes of the python module pyswath
+2.0.1: 2018/11/23
+	- Fix error with intermediary points
+
+2.0.0Beta: 2018/07/10
+	- Change/simplify the plot-title definition in plotgraph
+	- add from __future__ import absolute_import and from __future__ import print_function to prepare to Python 3
+	
 1.1.1: 2018/01/17
 	- bug fixed with ImportError
 

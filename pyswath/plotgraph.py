@@ -4,6 +4,8 @@
 # Do divisions with Reals, not with integers
 # Must be at the beginning of the file
 from __future__ import division
+from __future__ import absolute_import
+from __future__ import print_function
 
 ## Import Python modules
 ## I have problems to install rasterio : it does not find gdal libraries... from kingchaos
@@ -15,20 +17,17 @@ for module in modulesNames:
 		# create a global object containging our module
 		globals()[module] = module_obj
 	except ImportError:
-		#sys.exit(u"ERROR : Module " + module + " not present. \n\n Please, install it \
-		raise ImportError(u"ERROR : Module " + module + " not present. \n\n Please, install it \
-			      \n\n Edit the source code for more information")
+		raise ImportError(u"ERROR : Module %s not present. \n\n Please, install it \
+			      \n\n Edit the source code for more information" %(module))
 try:
 	import numpy as np                               # need version 1.7 or higher
 except ImportError:
-	#sys.exit(u"ERROR : Module Numpy not present. \n\n Please, install it \
 	raise ImportError(u"ERROR : Module Numpy not present. \n\n Please, install it \
 		      \n\n Edit the source code for more information")
 try:
 	import matplotlib.pyplot as plt                  # module to plot figures
-	from matplotlib import cm
+	from matplotlib import cm, rc
 except ImportError:
-	#sys.exit(u"ERROR : Module matplotlib not present. \n\n Please, install it \
 	raise ImportError(u"ERROR : Module matplotlib not present. \n\n Please, install it \
 		      \n\n Edit the source code for more information")
 
@@ -63,17 +62,17 @@ def plot_graph(data, datamask, statslines, title, xdist, xstep, boxwidth, factor
 	print(u'   Plot the transect...')	
 	
 	linewidth = 1
-	
 	plt.clf()
+	
 	# Change the settings of the graph
-	if sizeplotx != None and sizeploty != None:
+	if sizeplotx and sizeploty:
 		plt.figure(num = None, figsize=(sizeplotx,sizeploty))
 	
 	## plot the altitude density plot in red
 	plt.hexbin(data[:,0] / factor, data[:,1], C = datamask, cmap = cm.Reds, bins = None)
 	## make a color palette with the altitude frequency
 	# to force the boundaries of the color palette :
-	if densitymin != None and densitymax != None:
+	if densitymin and densitymax:
 		plt.clim(densitymin, densitymax)
 	cd = plt.colorbar()
 	cd.set_label(u'Altitude frequency')
@@ -102,7 +101,7 @@ def plot_graph(data, datamask, statslines, title, xdist, xstep, boxwidth, factor
 	         label = u'Mean alt')
 	
 	# remove NoData (valid only for the min ; I assume that NaN data are data inf. or equal to 0)
-	# TO BE CHANGED	
+	# TO BE CHANGED	!!!!!!
 	statslines[statslines[:,1] <= 0.0, 1] = np.nan
 	
 	#altifreq = np.ma.masked_where(data[:,2] == 0, data[:,1])
@@ -138,18 +137,18 @@ def plot_graph(data, datamask, statslines, title, xdist, xstep, boxwidth, factor
 	        	 linestyle = '-', 
 	        	 linewidth = linewidth,
 		         label = u'Min alt')
-	if xpoint != None:
+	if xpoint:
 		for jjj in range(0,len(xpoint)):
 			plt.axvline(x = xpoint[jjj]/factor, ls = '--', linewidth = 1, color = '0.75')#, label = 'STDS position')
 	
 	#plt.ylim(0,statslines[:,2].max() + 500)
-	if ylimmax != None:
-		if ylimmin != None:
+	if ylimmax:
+		if ylimmin:
 			plt.ylim(ylimmin, ylimmax)
 		else:
 			plt.ylim(0, ylimmax)
 	else:
-		if ylimmin != None:
+		if ylimmin:
 			plt.ylim(ylimmin, statslines[:,2].max())
 		else:
 			plt.ylim(0, statslines[:,2].max())
@@ -160,12 +159,15 @@ def plot_graph(data, datamask, statslines, title, xdist, xstep, boxwidth, factor
 	plt.ylabel(u'Altitude (m)')
 	plt.legend(loc='best', numpoints = 1)
 	#plt.title(title + ' ' + str(iii + 1) + u' (Xstep = ' + str(round(xstep / 1000,2)) + u' km; Boxwidth = ' + str(round(boxwidth / 1000,0)) + u' km)')
-	plt.title(title + ' ' + str(iii + 1) + u' (Xstep = ' + str(round(xstep / factor,2)) + u' km; Boxwidth = ' + str(round(boxwidth / factor,0)) + u' km)')
+	#plt.title(title + ' ' + str(iii + 1) + u' (Xstep = ' + str(round(xstep / factor,2)) + u' km; Boxwidth = ' + str(round(boxwidth / factor,0)) + u' km)')
+	#plt.title(r'%s %s (Xstep = %s km; Boxwidth = %s km)'
+	#          %(title, str(iii + 1), str(round(xstep / factor,2)), str(round(boxwidth / factor,0))))
+	plt.title(r'%s %s (Xstep = %s.0f km; Boxwidth = %s.0f km)'
+	          %(title, str(iii + 1), str(xstep / factor), str(boxwidth / factor)))
 	plt.savefig("Graphs/" + title + '_transect_' + str(iii + 1) + '.pdf')
-
 	plt.close()
-	
-	print(u'   Saved in Graphs/' + title + u'_transect_' + str(iii + 1) + u'.pdf')
+	print(u'   Saved in Graphs/%s_transect_%s.pdf'
+	      %(title, str(iii + 1)))
 
 	return
 	

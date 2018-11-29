@@ -3,6 +3,8 @@
 
 from __future__ import  division
 # This to be sure that the result of the division of 2 integers is a real, not an integer
+from __future__ import absolute_import
+from __future__ import print_function
 
 __version__ = "1.0.0"
 
@@ -15,8 +17,8 @@ import numpy as np
 # Import all the functions
 __all__ = ['raster_tools', 'profiles', 'swath', 'plotgraph', 'checks']
 
-from raster_tools import *
-from profiles import *
-from swath import *
-from plotgraph import *
-from checks import *
+from .raster_tools import *
+from .profiles import *
+from .swath import *
+from .plotgraph import *
+from .checks import *

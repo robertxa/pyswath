@@ -4,6 +4,8 @@
 # Do divisions with Reals, not with integers
 # Must be at the beginning of the file
 from __future__ import division
+from __future__ import absolute_import
+from __future__ import print_function
 
 # To do :
 #	- test other projections, I have not tested it
@@ -67,8 +69,8 @@ except ImportError:
 	raise ImportError(u"ERROR : Module progress not present. \n\n Please, install it \
 		      \n\n Edit the source code for more information")
 
-from raster_tools import *
-from plotgraph import *
+from .raster_tools import *
+from .plotgraph import *
 ############################################################################
 
 def makeshape(A, B, boxwidth, shp, srs, xstep = 'NULL', nx = 'NULL' , ny = 'NULL', beta = 'NULL'):
@@ -456,7 +458,7 @@ def main_xa(A, B, xsteps, boxwidth, binsize, title, shpbox, rasterfnme, srs, fac
 		try:
 			#falti[i,:], alt = np.histogram([f['mini_raster_array'] for f in stats][0], altirg, density = True)
 			falti[i,:], alt = np.histogram([f['mini_raster_array'] for f in stats][0].compressed(), altirg, density = True)
-		except KeyError, e:
+		except KeyError as e:
 			print(repr(e))
 			raise NameError(u'Well... This error could come from a mismatch between one point of the profil and the region of the DEM \n'
 			          u'Please, check if the ongoing profile is well defined (Plot few of the TMP/shapefile on the DEM to check that)')

@@ -4,6 +4,8 @@
 # Do divisions with Reals, not with integers
 # Must be at the beginning of the file
 from __future__ import division
+from __future__ import absolute_import
+from __future__ import print_function
 
 ## Import Python modules
 ## I have problems to install rasterio : it does not find gdal libraries... from kingchaos

@@ -2,6 +2,7 @@ TO DO
 
 	- Check results if NaN in the DEM --> seems to give strange transects for the min value.
 	- In plot graph, I assumed that NODATA are data < 0. This need to be changed if we need to extract profiles with ocean data
+	- Ameliorate the graph title by (i) using LaTeX fonts and (ii) removing the digits after the .
 	- 
 
 

@@ -19,7 +19,7 @@ setup(name='pyswath',
 	download_url='https://github.com/robertxa/pyswath/archive/master.zip',
 	author='Xavier Robert',
 	author_email='xavier.robert@univ-grenoble-alpes.fr',
-	license='CCby-nc',
+	license='CCby-nc-sa',
 	packages=find_packages(),
 	install_requires=[
 	      'rasterstats>=0.11.0',
@@ -29,11 +29,10 @@ setup(name='pyswath',
 	      'gdal',
 	      'progress'
 	],
-	#classifiers=[
-	#	"Programming language :: Python",
-	#	"Operating System :: OS Independent",
-	#	"Topic :: GIS",
-	#],
+	classifiers=[
+		"Operating System :: OS Independent",
+		"Topic :: Scientific/Engineering :: GIS"
+	],
 	include_package_data=True,
 	zip_safe=False)
       

@@ -4,6 +4,8 @@
 # Do divisions with Reals, not with integers
 # Must be at the beginning of the file
 from __future__ import division
+from __future__ import absolute_import
+from __future__ import print_function
 
 # To do :
 #	- test other projections, I have not tested it
@@ -56,9 +58,9 @@ except ImportError:
 	raise ImportError(u"ERROR : Module osgeo/gdal not present. \n\n Please, install it \
 		      \n\n Edit the source code for more information")
 
-from raster_tools import *
-from profiles import *
-from plotgraph import *
+from .raster_tools import *
+from .profiles import *
+from .plotgraph import *
 
 ############################################################################
 

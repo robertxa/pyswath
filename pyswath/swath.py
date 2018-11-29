@@ -24,6 +24,8 @@ xavier.robert@univ-grenoble-alpes.fr
 # Do divisions with Reals, not with integers
 # Must be at the beginning of the file
 from __future__ import division
+from __future__ import absolute_import
+from __future__ import print_function
 
 # Import Python modules
 # I have problems to install rasterio : it does not find gdal libraries... from kingchaos
@@ -61,10 +63,10 @@ except ImportError:
 from distutils.version import LooseVersion, StrictVersion
 
 
-from raster_tools import *
-from profiles import *
-from plotgraph import *
-from checks import *
+from .raster_tools import *
+from .profiles import *
+from .plotgraph import *
+from .checks import *
 
 ###############################################################################
 
@@ -189,7 +191,7 @@ def swathp(rasterfnme = None, A = None, B = None, Coord = 'utm', factor = 1000,
 	19. C,D,...,J: Multipoints section :
 				intermediary points in the profile, given from A to B
 				Be aware of the order !
-				I choose to limit to 9 intermediary points C,D,E,F,G,H,I,J
+				I choosed to limit to 9 intermediary points C,D,E,F,G,H,I,J
 				Give the name C for the 1st intermediary point (C = [(-78.255,-9.713),(,),...])
 							  D for the 2nd intermediary point (D = [(-78.255,-9.713),(,),...])
 							  E for the 3rd intermediary point
@@ -288,7 +290,8 @@ def swathp(rasterfnme = None, A = None, B = None, Coord = 'utm', factor = 1000,
 				if kkk != nbpointsint[ggg]:
 					# if this is not the end of the profile, set the second point to cc[kkk]											
 					c = pointsdic[kkk+1]
-					c = eval(c)
+					c = eval(c)					
+					c = np.array(c)					
 					#ggg = -1
 					#for indexg in range (0,iii+1):
 					#	if multipoints[indexg]:
