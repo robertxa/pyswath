@@ -160,7 +160,15 @@ def plot_graph(data, datamask, statslines, title, xdist, xstep, boxwidth, factor
 	plt.ylabel(u'Altitude (m)')
 	plt.legend(loc='best', numpoints = 1)
 	#plt.title(title + ' ' + str(iii + 1) + u' (Xstep = ' + str(round(xstep / 1000,2)) + u' km; Boxwidth = ' + str(round(boxwidth / 1000,0)) + u' km)')
+<<<<<<< HEAD
+	#plt.title(title + ' ' + str(iii + 1) + u' (Xstep = ' + str(round(xstep / factor,2)) + u' km; Boxwidth = ' + str(round(boxwidth / factor,0)) + u' km)')
+	#plt.title(r'%s %s (Xstep = %s km; Boxwidth = %s km)'
+	#          %(title, str(iii + 1), str(round(xstep / factor,2)), str(round(boxwidth / factor,0))))
+	plt.title(r'%s %s (Xstep = %s km; Boxwidth = %s km)'
+	          %(title, str(iii + 1), str(round((xstep / factor), 2)), str(round((boxwidth / factor), 2))))
+=======
 	plt.title(title + ' ' + str(iii + 1) + u' (Xstep = ' + str(round(xstep / factor,2)) + u' km; Boxwidth = ' + str(round(boxwidth / factor,0)) + u' km)')
+>>>>>>> parent of 76626c0... Bugs correction in intermediary points module
 	plt.savefig("Graphs/" + title + '_transect_' + str(iii + 1) + '.pdf')
 
 	plt.close()

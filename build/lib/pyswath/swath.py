@@ -60,11 +60,18 @@ except ImportError:
 		      \n\n Edit the source code for more information")
 from distutils.version import LooseVersion, StrictVersion
 
+<<<<<<< HEAD
+from .raster_tools import *
+from .profiles import *
+from .plotgraph import *
+from .checks import *
+=======
 
 from raster_tools import *
 from profiles import *
 from plotgraph import *
 from checks import *
+>>>>>>> parent of 76626c0... Bugs correction in intermediary points module
 
 ###############################################################################
 
@@ -304,7 +311,11 @@ def swathp(rasterfnme = None, A = None, B = None, Coord = 'utm', factor = 1000,
 						C2_utm = np.zeros(c.shape)
 						junk = D_utm
 						# do the projection if needed
+<<<<<<< HEAD
+						junk, c, junk2 = project_points(A, c, srs, D_utm, C2_utm, test_N, iii, ggg)
+=======
 						junk, c, junk2 = project_points(A, c, D_utm, C2_utm, test_N, iii, ggg)
+>>>>>>> parent of 76626c0... Bugs correction in intermediary points module
 					bb1 = c[ggg]
 				else:
 					# if this is the end of the profile, set the second point to B
@@ -361,9 +372,19 @@ def swathp(rasterfnme = None, A = None, B = None, Coord = 'utm', factor = 1000,
 						statslinestot[lll,0] = max(statslinestotbackup[:,0]) \
 							                     + statslines[lll - statslinestotbackup.shape[0],0]
 					datatot = np.concatenate((datatotbackup, data), axis = 0)
+					
+					# Define the progress-bar that is output in the terminal window
+					bar = Bar(u'      Processing concatenation %i.%i' % ((iii + 1), kkk), 
+					           max = datatot.shape[0]-datatotbackup.shape[0] + 1, 
+					           suffix = '%(index)d / %(max)d ')
 					for lll in range (datatotbackup.shape[0], datatot.shape[0]):
 						# This is this loop that is long...
 						datatot[lll,0] = max(datatotbackup[:,0]) + data[lll - datatotbackup.shape[0],0]
+						# add a progressbar ???
+						bar.next()
+					bar.next()
+					# Finish the progress-bar
+					bar.finish()
 					time_int = time.time() - time_st
 					print(u'       This subprofil needed %i seconds to run' % time_int)
 				# Clean the workspace

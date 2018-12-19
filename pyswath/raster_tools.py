@@ -135,7 +135,7 @@ def project_points(A, B, srs, A_utm, B_utm, test_N, iii, ggg):
 			print(u'          the computed profile is at the right place on the DEM.')
 			print(u'          Do not be surprised if you get an error in the calcul of statistics,')
 			print(u'          that means that your projected profile is out of the bounds of the projected DEM.')
-			print(u'          To solve the problem, use as entry :')
+			print(u'          To solve the problem, use as entries :')
 			print(u'               - The projected DEM,')
 			print(u'               - Coordinates of points that you extract on the projected DEM!')
 		# Define the new spatial reference

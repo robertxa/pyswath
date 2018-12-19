@@ -162,8 +162,8 @@ def plot_graph(data, datamask, statslines, title, xdist, xstep, boxwidth, factor
 	#plt.title(title + ' ' + str(iii + 1) + u' (Xstep = ' + str(round(xstep / factor,2)) + u' km; Boxwidth = ' + str(round(boxwidth / factor,0)) + u' km)')
 	#plt.title(r'%s %s (Xstep = %s km; Boxwidth = %s km)'
 	#          %(title, str(iii + 1), str(round(xstep / factor,2)), str(round(boxwidth / factor,0))))
-	plt.title(r'%s %s (Xstep = %s.0f km; Boxwidth = %s.0f km)'
-	          %(title, str(iii + 1), str(xstep / factor), str(boxwidth / factor)))
+	plt.title(r'%s %s (Xstep = %s km; Boxwidth = %s km)'
+	          %(title, str(iii + 1), str(round((xstep / factor), 2)), str(round((boxwidth / factor), 2))))
 	plt.savefig("Graphs/" + title + '_transect_' + str(iii + 1) + '.pdf')
 	plt.close()
 	print(u'   Saved in Graphs/%s_transect_%s.pdf'

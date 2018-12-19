@@ -1,6 +1,13 @@
 History changes of the python module pyswath
+<<<<<<< HEAD
+2.0.1: 2018/12/19
+	- Fix 2 errors with intermediary points
+	- Graph title shortened
+	- Tested on Python 3.6.6
+=======
 2.0.1: 2018/11/23
 	- Fix error with intermediary points
+>>>>>>> parent of 76626c0... Bugs correction in intermediary points module
 
 2.0.0Beta: 2018/07/10
 	- Change/simplify the plot-title definition in plotgraph
