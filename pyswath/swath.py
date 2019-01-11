@@ -371,7 +371,6 @@ def swathp(rasterfnme = None, A = None, B = None, Coord = 'utm', factor = 1000,
 					for lll in range (datatotbackup.shape[0], datatot.shape[0]):
 						# This is this loop that is long...
 						datatot[lll,0] = max(datatotbackup[:,0]) + data[lll - datatotbackup.shape[0],0]
-						# add a progressbar ???
 						bar.next()
 					bar.next()
 					# Finish the progress-bar
