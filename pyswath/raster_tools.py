@@ -160,7 +160,7 @@ def project_points(A, B, srs, A_utm, B_utm, test_N, iii, ggg):
 		srs_new.SetUTM(utm_zone, test_N)
 	
 	print(u'Projection to UTM zone %i' % utm_zone)
-		
+	
 	#return A_utm[iii, 0], A_utm[iii, 1], B_utm[iii, 0], B_utm[iii, 1], srs_new
 	return A_utm, B_utm, srs_new
 

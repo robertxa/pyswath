@@ -1,8 +1,11 @@
 History changes of the python module pyswath
+2.0.2: 2019/01/15
+	- Fix error in the projection of intermediary points
+
 2.0.1: 2018/12/19
 	- Fix 2 errors with intermediary points
 	- Graph title shortened
-	- Tested on Python 3.6.6
+	- Tested on Python 3.6.6 and Python 2.7.15
 	
 2.0.1: 2018/11/23
 	- Fix error with intermediary points

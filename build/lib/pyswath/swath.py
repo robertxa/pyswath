@@ -24,11 +24,13 @@ xavier.robert@univ-grenoble-alpes.fr
 # Do divisions with Reals, not with integers
 # Must be at the beginning of the file
 from __future__ import division
+from __future__ import absolute_import
+from __future__ import print_function
 
 # Import Python modules
 # I have problems to install rasterio : it does not find gdal libraries... from kingchaos
 #modulesNames = ['sys', 'math', 'os', 'utm', 'warnings', 'rasterstats', 'shapely', 'copy', 'time', 'rasterio']
-modulesNames = ['sys', 'warnings', 'time', 'copy']
+modulesNames = ['sys', 'time', 'copy']
 for module in modulesNames:
 	try:
 		# because we want to import using a variable, do it this way
@@ -37,41 +39,33 @@ for module in modulesNames:
 		globals()[module] = module_obj
 	except ImportError:
 		#sys.exit(u"ERROR : Module " + module + " not present. \n\n Please, install it \
-		raise ModuleError(u"ERROR : Module " + module + " not present. \n\n Please, install it \
+		raise ImportError(u"ERROR : Module " + module + " not present. \n\n Please, install it \
 			      \n\n Edit the source code for more information")
 try:
 	import numpy as np                               # need version 1.7 or higher
 except ImportError:
 	#sys.exit(u"ERROR : Module Numpy not present. \n\n Please, install it \
-	raise ModuleError(u"ERROR : Module Numpy not present. \n\n Please, install it \
+	raise ImportError(u"ERROR : Module Numpy not present. \n\n Please, install it \
 		      \n\n Edit the source code for more information")
 try:
 	from osgeo import gdal, gdalnumeric, ogr, osr    # For GIS operations
 	from osgeo.gdalconst import *
 except ImportError:
 	#sys.exit(u"ERROR : Module osgeo/gdal not present. \n\n Please, install it \
-	raise ModuleError(u"ERROR : Module osgeo/gdal not present. \n\n Please, install it \
+	raise ImportError(u"ERROR : Module osgeo/gdal not present. \n\n Please, install it \
 		      \n\n Edit the source code for more information")
 try:
 	from progress.bar import Bar                     # For a progress bar in the terminal output
 except ImportError:
 	#sys.exit(u"ERROR : Module progress not present. \n\n Please, install it \
-	raise ModuleError(u"ERROR : Module progress not present. \n\n Please, install it \
+	raise ImportError(u"ERROR : Module progress not present. \n\n Please, install it \
 		      \n\n Edit the source code for more information")
 from distutils.version import LooseVersion, StrictVersion
 
-<<<<<<< HEAD
 from .raster_tools import *
 from .profiles import *
 from .plotgraph import *
 from .checks import *
-=======
-
-from raster_tools import *
-from profiles import *
-from plotgraph import *
-from checks import *
->>>>>>> parent of 76626c0... Bugs correction in intermediary points module
 
 ###############################################################################
 
@@ -196,7 +190,7 @@ def swathp(rasterfnme = None, A = None, B = None, Coord = 'utm', factor = 1000,
 	19. C,D,...,J: Multipoints section :
 				intermediary points in the profile, given from A to B
 				Be aware of the order !
-				I choose to limit to 9 intermediary points C,D,E,F,G,H,I,J
+				I choosed to limit to 9 intermediary points C,D,E,F,G,H,I,J
 				Give the name C for the 1st intermediary point (C = [(-78.255,-9.713),(,),...])
 							  D for the 2nd intermediary point (D = [(-78.255,-9.713),(,),...])
 							  E for the 3rd intermediary point
@@ -245,7 +239,7 @@ def swathp(rasterfnme = None, A = None, B = None, Coord = 'utm', factor = 1000,
 		synthetic = True
 	else:
 		synthetic = False
-	xsteps, boxwidths, Coord, srs, dst_filename, a, b, a_utm, b_utm, test_N, shpbox, ulx, lrx, lry, uly, projdone = checkfiles(rasterfnme, 
+	xsteps, boxwidths, Coord, srs_init, srs, dst_filename, a, b, a_utm, b_utm, test_N, shpbox, ulx, lrx, lry, uly, projdone = checkfiles(rasterfnme, 
 						A, B, xsteps, boxwidths, shpbox, title, 
 						Coord, synthetic,
 						multipoints, remNoData)
@@ -295,7 +289,8 @@ def swathp(rasterfnme = None, A = None, B = None, Coord = 'utm', factor = 1000,
 				if kkk != nbpointsint[ggg]:
 					# if this is not the end of the profile, set the second point to cc[kkk]											
 					c = pointsdic[kkk+1]
-					c = eval(c)
+					c = eval(c)					
+					c = np.array(c)					
 					#ggg = -1
 					#for indexg in range (0,iii+1):
 					#	if multipoints[indexg]:
@@ -308,14 +303,20 @@ def swathp(rasterfnme = None, A = None, B = None, Coord = 'utm', factor = 1000,
 						raise NameError(u"ERROR : Intermediary point%s is outside the DEM border %s" % (c, (lry, uly)))
 					
 					if projdone:
+						
 						C2_utm = np.zeros(c.shape)
 						junk = D_utm
 						# do the projection if needed
-<<<<<<< HEAD
-						junk, c, junk2 = project_points(A, c, srs, D_utm, C2_utm, test_N, iii, ggg)
-=======
-						junk, c, junk2 = project_points(A, c, D_utm, C2_utm, test_N, iii, ggg)
->>>>>>> parent of 76626c0... Bugs correction in intermediary points module
+						junk, junk2, junk3 = project_points(A, c, srs_init, D_utm, C2_utm, test_N, iii, ggg)
+						
+						print("eheheh", junk, junk2, junk3)
+						
+						junk, c, junk2 = project_points(A, c, srs_init, D_utm, C2_utm, test_N, iii, ggg)
+						
+						
+						########### 2018-1
+						print("C", c, C2_utm, c[ggg])
+						########### 2018-1
 					bb1 = c[ggg]
 				else:
 					# if this is the end of the profile, set the second point to B
@@ -374,13 +375,12 @@ def swathp(rasterfnme = None, A = None, B = None, Coord = 'utm', factor = 1000,
 					datatot = np.concatenate((datatotbackup, data), axis = 0)
 					
 					# Define the progress-bar that is output in the terminal window
-					bar = Bar(u'      Processing concatenation %i.%i' % ((iii + 1), kkk), 
+					bar = Bar(u'       Processing concatenation %i.%i' % ((iii + 1), kkk), 
 					           max = datatot.shape[0]-datatotbackup.shape[0] + 1, 
 					           suffix = '%(index)d / %(max)d ')
 					for lll in range (datatotbackup.shape[0], datatot.shape[0]):
 						# This is this loop that is long...
 						datatot[lll,0] = max(datatotbackup[:,0]) + data[lll - datatotbackup.shape[0],0]
-						# add a progressbar ???
 						bar.next()
 					bar.next()
 					# Finish the progress-bar

@@ -86,7 +86,8 @@ def checkfiles(rasterfnme, A, B, xsteps, boxwidths, shpbox, title,
 		- xsteps: 
 		- boxwidths: 
 		- Coord: 
-		- srs: 
+		- srs_init: Initial coordinate system 
+		- srs: Working coordinate systems
 		- dst_filename: 
 		- a, b: 
 		- a_utm, b_utm: 
@@ -208,6 +209,10 @@ def checkfiles(rasterfnme, A, B, xsteps, boxwidths, shpbox, title,
 	# get projection of the raster source	
 	src_proj = rasterdata.GetProjection()
 	srs = osr.SpatialReference(wkt = src_proj)
+	
+	# Keep the original srs for future calculs
+	srs_init = srs
+	
 	# To find the projection : srs.GetAttrValue('geogcs')
 	if not synthetic and ('UTM' not in src_proj or (Coord[0:3] != 'utm' and Coord[0:3] != 'UTM')):
 		projdone = True
@@ -235,6 +240,6 @@ def checkfiles(rasterfnme, A, B, xsteps, boxwidths, shpbox, title,
 		else:
 			text_N = 1	
 	
-	return xsteps, boxwidths, Coord, srs, dst_filename, a, b, a_utm, b_utm, test_N, shpbox, ulx, lrx, lry, uly, projdone
+	return xsteps, boxwidths, Coord, srs_init, srs, dst_filename, a, b, a_utm, b_utm, test_N, shpbox, ulx, lrx, lry, uly, projdone
 	
 	

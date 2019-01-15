@@ -4,6 +4,8 @@
 # Do divisions with Reals, not with integers
 # Must be at the beginning of the file
 from __future__ import division
+from __future__ import absolute_import
+from __future__ import print_function
 
 # To do :
 #	- test other projections, I have not tested it
@@ -39,26 +41,26 @@ for module in modulesNames:
 		globals()[module] = module_obj
 	except ImportError:
 		#sys.exit(u"ERROR : Module " + module + " not present. \n\n Please, install it \
-		raise ModuleError(u"ERROR : Module " + module + " not present. \n\n Please, install it \
+		raise ImportError(u"ERROR : Module " + module + " not present. \n\n Please, install it \
 			      \n\n Edit the source code for more information")
 from os import path, access, R_OK, mkdir         # W_OK for write permission.
 try:
 	import numpy as np                               # need version 1.7 or higher
 except ImportError:
 	#sys.exit(u"ERROR : Module Numpy not present. \n\n Please, install it \
-	raise ModuleError(u"ERROR : Module Numpy not present. \n\n Please, install it \
+	raise ImportError(u"ERROR : Module Numpy not present. \n\n Please, install it \
 		      \n\n Edit the source code for more information")
 try:
 	from osgeo import gdal, gdalnumeric, ogr, osr    # For GIS operations
 	from osgeo.gdalconst import *
 except ImportError:
 	#sys.exit(u"ERROR : Module osgeo/gdal not present. \n\n Please, install it \
-	raise ModuleError(u"ERROR : Module osgeo/gdal not present. \n\n Please, install it \
+	raise ImportError(u"ERROR : Module osgeo/gdal not present. \n\n Please, install it \
 		      \n\n Edit the source code for more information")
 
-from raster_tools import *
-from profiles import *
-from plotgraph import *
+from .raster_tools import *
+from .profiles import *
+from .plotgraph import *
 
 ############################################################################
 
@@ -183,8 +185,8 @@ def checkfiles(rasterfnme, A, B, xsteps, boxwidths, shpbox, title,
 	# Check if xteps is compatible with the DEM resolution
 	for iii in range (0, len(xsteps)):
 		if min(geotransform[1], geotransform[5]) >= xsteps[iii]:
-			warnings.warnings(u'Xstep smaller that the pixel size of the DEM ! \n \
-	    		              Xstep is set to 3 times the pixel size')
+			warnings.warn(u'Xstep smaller that the pixel size of the DEM ! \n \
+	    		            Xstep is set to 3 times the pixel size')
 			xsteps[iii] = max(geotransform[1], geotransform[5]) * 3
 	# xtep is now OK for processing
 	
@@ -206,6 +208,12 @@ def checkfiles(rasterfnme, A, B, xsteps, boxwidths, shpbox, title,
 	# get projection of the raster source	
 	src_proj = rasterdata.GetProjection()
 	srs = osr.SpatialReference(wkt = src_proj)
+	
+	##### 2019-1
+	srs_init = srs
+	##### 2019-1
+	
+	
 	# To find the projection : srs.GetAttrValue('geogcs')
 	if not synthetic and ('UTM' not in src_proj or (Coord[0:3] != 'utm' and Coord[0:3] != 'UTM')):
 		projdone = True
@@ -233,6 +241,6 @@ def checkfiles(rasterfnme, A, B, xsteps, boxwidths, shpbox, title,
 		else:
 			text_N = 1	
 	
-	return xsteps, boxwidths, Coord, srs, dst_filename, a, b, a_utm, b_utm, test_N, shpbox, ulx, lrx, lry, uly, projdone
+	return xsteps, boxwidths, Coord, srs_init, srs, dst_filename, a, b, a_utm, b_utm, test_N, shpbox, ulx, lrx, lry, uly, projdone
 	
 	

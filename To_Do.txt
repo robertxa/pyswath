@@ -5,5 +5,8 @@ TO DO
 	- Ameliorate the graph title by (i) using LaTeX fonts and (ii) removing the digits after the .
 	- 
 
+BUGS FOUNDS/TO BE CORRECTED
+	- 
 
-	
+DONE
+	- it seems that the code does not project intermediary points if there are in lat-long...

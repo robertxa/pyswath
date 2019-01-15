@@ -4,10 +4,12 @@
 # Do divisions with Reals, not with integers
 # Must be at the beginning of the file
 from __future__ import division
+from __future__ import absolute_import
+from __future__ import print_function
 
 ## Import Python modules
 ## I have problems to install rasterio : it does not find gdal libraries... from kingchaos
-modulesNames = ['sys', 'math', 'os', 'utm', 'warnings', 'rasterstats', 'shapely']
+modulesNames = ['sys', 'math', 'os', 'utm', 'rasterstats', 'shapely']
 for module in modulesNames:
 	try:
 		# because we want to import using a variable, do it this way
@@ -16,7 +18,7 @@ for module in modulesNames:
 		globals()[module] = module_obj
 	except ImportError:
 		#sys.exit(u"ERROR : Module " + module + " not present. \n\n Please, install it \
-		raise ModuleError(u"ERROR : Module " + module + " not present. \n\n Please, install it \
+		raise ImportError(u"ERROR : Module " + module + " not present. \n\n Please, install it \
 			      \n\n Edit the source code for more information")
 from os import path, access, R_OK, mkdir         # W_OK for write permission.
 from rasterstats import raster_stats, zonal_stats             # For stats on rasters
@@ -29,14 +31,14 @@ try:
 	import numpy as np                               # need version 1.7 or higher
 except ImportError:
 	#sys.exit(u"ERROR : Module Numpy not present. \n\n Please, install it \
-	raise ModuleError(u"ERROR : Module Numpy not present. \n\n Please, install it \
+	raise ImportError(u"ERROR : Module Numpy not present. \n\n Please, install it \
 		      \n\n Edit the source code for more information")
 try:
 	from osgeo import gdal, gdalnumeric, ogr, osr    # For GIS operations
 	from osgeo.gdalconst import *
 except ImportError:
 	#sys.exit(u"ERROR : Module osgeo/gdal not present. \n\n Please, install it \
-	raise ModuleError(u"ERROR : Module osgeo/gdal not present. \n\n Please, install it \
+	raise ImportError(u"ERROR : Module osgeo/gdal not present. \n\n Please, install it \
 		      \n\n Edit the source code for more information")
 ###############################################################################
 
@@ -158,7 +160,8 @@ def project_points(A, B, srs, A_utm, B_utm, test_N, iii, ggg):
 		srs_new.SetUTM(utm_zone, test_N)
 	
 	print(u'Projection to UTM zone %i' % utm_zone)
-		
+	
+	print("function", A_utm, B_utm, srs_new)	
 	#return A_utm[iii, 0], A_utm[iii, 1], B_utm[iii, 0], B_utm[iii, 1], srs_new
 	return A_utm, B_utm, srs_new
 

@@ -239,7 +239,7 @@ def swathp(rasterfnme = None, A = None, B = None, Coord = 'utm', factor = 1000,
 		synthetic = True
 	else:
 		synthetic = False
-	xsteps, boxwidths, Coord, srs, dst_filename, a, b, a_utm, b_utm, test_N, shpbox, ulx, lrx, lry, uly, projdone = checkfiles(rasterfnme, 
+	xsteps, boxwidths, Coord, srs_init, srs, dst_filename, a, b, a_utm, b_utm, test_N, shpbox, ulx, lrx, lry, uly, projdone = checkfiles(rasterfnme, 
 						A, B, xsteps, boxwidths, shpbox, title, 
 						Coord, synthetic,
 						multipoints, remNoData)
@@ -306,7 +306,8 @@ def swathp(rasterfnme = None, A = None, B = None, Coord = 'utm', factor = 1000,
 						C2_utm = np.zeros(c.shape)
 						junk = D_utm
 						# do the projection if needed
-						junk, c, junk2 = project_points(A, c, D_utm, C2_utm, test_N, iii, ggg)
+						junk, c, junk2 = project_points(A, c, srs_init, D_utm, C2_utm, test_N, iii, ggg)
+						
 					bb1 = c[ggg]
 				else:
 					# if this is the end of the profile, set the second point to B
