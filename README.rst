@@ -299,6 +299,12 @@ Inside the working directory, the code build several folders :
 		+ a shapefile defining the line between the two points of the profile
 		+ a shapefile that define the box in which the transect is extracted
 
+How to cite
+-----------
+
+.. image:: https://zenodo.org/badge/81983899.svg
+   :target: https://zenodo.org/badge/latestdoi/81983899
+
 Contact
 -------
 
