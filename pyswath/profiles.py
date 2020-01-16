@@ -1,6 +1,10 @@
 ######!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# Copyright (c) 2020 Xavier Robert <xavier.robert@ird.fr>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+
 # Do divisions with Reals, not with integers
 # Must be at the beginning of the file
 from __future__ import division
