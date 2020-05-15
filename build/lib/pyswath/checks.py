@@ -1,6 +1,10 @@
 ######!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# Copyright (c) 2020 Xavier Robert <xavier.robert@ird.fr>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+
 # Do divisions with Reals, not with integers
 # Must be at the beginning of the file
 from __future__ import division
@@ -86,7 +90,8 @@ def checkfiles(rasterfnme, A, B, xsteps, boxwidths, shpbox, title,
 		- xsteps: 
 		- boxwidths: 
 		- Coord: 
-		- srs: 
+		- srs_init: Initial coordinate system 
+		- srs: Working coordinate systems
 		- dst_filename: 
 		- a, b: 
 		- a_utm, b_utm: 
@@ -209,10 +214,8 @@ def checkfiles(rasterfnme, A, B, xsteps, boxwidths, shpbox, title,
 	src_proj = rasterdata.GetProjection()
 	srs = osr.SpatialReference(wkt = src_proj)
 	
-	##### 2019-1
+	# Keep the original srs for future calculs
 	srs_init = srs
-	##### 2019-1
-	
 	
 	# To find the projection : srs.GetAttrValue('geogcs')
 	if not synthetic and ('UTM' not in src_proj or (Coord[0:3] != 'utm' and Coord[0:3] != 'UTM')):

@@ -1,6 +1,10 @@
 ######!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# Copyright (c) 2020 Xavier Robert <xavier.robert@ird.fr>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+
 # Do divisions with Reals, not with integers
 # Must be at the beginning of the file
 from __future__ import division
@@ -161,7 +165,6 @@ def project_points(A, B, srs, A_utm, B_utm, test_N, iii, ggg):
 	
 	print(u'Projection to UTM zone %i' % utm_zone)
 	
-	print("function", A_utm, B_utm, srs_new)	
 	#return A_utm[iii, 0], A_utm[iii, 1], B_utm[iii, 0], B_utm[iii, 1], srs_new
 	return A_utm, B_utm, srs_new
 
@@ -275,7 +278,8 @@ def raster_projection(rasterfnme, rasterdata, src_geotrans,  srs, dst_filename, 
 		# Do the reprojection
 		gdal.ReprojectImage(rasterdata, # InRaster
 							dst,        # OutRaster
-							src.ExportToWkt(), # src_wkt
+							#src.ExportToWkt(), # src_wkt	# srs in place of src ; Issue #2 Typo in raster_tools
+							srs.ExportToWkt(), # src_wkt
 							srs_new.ExportToWkt(), # dst_wkt
 							GRA_Bilinear)    # eResampleAlg		
 		return dst

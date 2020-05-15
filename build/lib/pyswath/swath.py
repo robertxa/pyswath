@@ -1,5 +1,10 @@
 ######!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
+# Copyright (c) 2020 Xavier Robert <xavier.robert@ird.fr>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+
 """
 ##########################################################
 #                                                        #  
@@ -16,8 +21,6 @@
 Written by Xavier Robert, june 2015
 
 xavier.robert@univ-grenoble-alpes.fr
-
-(c) licence CCby-nc : http://creativecommons.org/licenses/by-nc/3.0/ 2015
 
 """
 
@@ -213,8 +216,6 @@ def swathp(rasterfnme = None, A = None, B = None, Coord = 'utm', factor = 1000,
 		If needed, do not hesitate to contact the author. 
 		Please, use https://isterre.fr/spip.php?page=contact&id_auteur=303
 
-	LICENCE
-	This package is licenced with `CCby-nc` (https://creativecommons.org/licenses/by-nc/2.0/)
 	"""
 	start_time = time.time()
 	
@@ -303,20 +304,11 @@ def swathp(rasterfnme = None, A = None, B = None, Coord = 'utm', factor = 1000,
 						raise NameError(u"ERROR : Intermediary point%s is outside the DEM border %s" % (c, (lry, uly)))
 					
 					if projdone:
-						
 						C2_utm = np.zeros(c.shape)
 						junk = D_utm
 						# do the projection if needed
-						junk, junk2, junk3 = project_points(A, c, srs_init, D_utm, C2_utm, test_N, iii, ggg)
-						
-						print("eheheh", junk, junk2, junk3)
-						
 						junk, c, junk2 = project_points(A, c, srs_init, D_utm, C2_utm, test_N, iii, ggg)
 						
-						
-						########### 2018-1
-						print("C", c, C2_utm, c[ggg])
-						########### 2018-1
 					bb1 = c[ggg]
 				else:
 					# if this is the end of the profile, set the second point to B

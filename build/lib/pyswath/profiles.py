@@ -1,9 +1,15 @@
 ######!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# Copyright (c) 2020 Xavier Robert <xavier.robert@ird.fr>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+
 # Do divisions with Reals, not with integers
 # Must be at the beginning of the file
 from __future__ import division
+from __future__ import absolute_import
+from __future__ import print_function
 
 # To do :
 #	- test other projections, I have not tested it
@@ -29,7 +35,7 @@ from __future__ import division
 
 ## Import Python modules
 ## I have problems to install rasterio : it does not find gdal libraries... from kingchaos
-modulesNames = ['sys', 'math', 'os', 'utm', 'warnings', 'shapely']
+modulesNames = ['sys', 'math', 'os', 'utm', 'shapely']
 for module in modulesNames:
 	try:
 		# because we want to import using a variable, do it this way
@@ -38,7 +44,7 @@ for module in modulesNames:
 		globals()[module] = module_obj
 	except ImportError:
 		#sys.exit(u"ERROR : Module " + module + " not present. \n\n Please, install it \
-		raise ModuleError(u"ERROR : Module " + module + " not present. \n\n Please, install it \
+		raise ImportError(u"ERROR : Module " + module + " not present. \n\n Please, install it \
 			      \n\n Edit the source code for more information")
 from os import path, access, R_OK, mkdir         # W_OK for write permission.
 from rasterstats import raster_stats, zonal_stats             # For stats on rasters
@@ -51,24 +57,24 @@ try:
 	import numpy as np                               # need version 1.7 or higher
 except ImportError:
 	#sys.exit(u"ERROR : Module Numpy not present. \n\n Please, install it \
-	raise ModuleError(u"ERROR : Module Numpy not present. \n\n Please, install it \
+	raise ImportError(u"ERROR : Module Numpy not present. \n\n Please, install it \
 		      \n\n Edit the source code for more information")
 try:
 	from osgeo import gdal, gdalnumeric, ogr, osr    # For GIS operations
 	from osgeo.gdalconst import *
 except ImportError:
 	#sys.exit(u"ERROR : Module osgeo/gdal not present. \n\n Please, install it \
-	raise ModuleError(u"ERROR : Module osgeo/gdal not present. \n\n Please, install it \
+	raise ImportError(u"ERROR : Module osgeo/gdal not present. \n\n Please, install it \
 		      \n\n Edit the source code for more information")
 try:
 	from progress.bar import Bar                     # For a progress bar in the terminal output
 except ImportError:
 	#sys.exit(u"ERROR : Module progress not present. \n\n Please, install it \
-	raise ModuleError(u"ERROR : Module progress not present. \n\n Please, install it \
+	raise ImportError(u"ERROR : Module progress not present. \n\n Please, install it \
 		      \n\n Edit the source code for more information")
 
-from raster_tools import *
-from plotgraph import *
+from .raster_tools import *
+from .plotgraph import *
 ############################################################################
 
 def makeshape(A, B, boxwidth, shp, srs, xstep = 'NULL', nx = 'NULL' , ny = 'NULL', beta = 'NULL'):
@@ -456,7 +462,7 @@ def main_xa(A, B, xsteps, boxwidth, binsize, title, shpbox, rasterfnme, srs, fac
 		try:
 			#falti[i,:], alt = np.histogram([f['mini_raster_array'] for f in stats][0], altirg, density = True)
 			falti[i,:], alt = np.histogram([f['mini_raster_array'] for f in stats][0].compressed(), altirg, density = True)
-		except KeyError, e:
+		except KeyError as e:
 			print(repr(e))
 			raise NameError(u'Well... This error could come from a mismatch between one point of the profil and the region of the DEM \n'
 			          u'Please, check if the ongoing profile is well defined (Plot few of the TMP/shapefile on the DEM to check that)')
