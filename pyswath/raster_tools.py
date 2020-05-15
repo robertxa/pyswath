@@ -278,7 +278,8 @@ def raster_projection(rasterfnme, rasterdata, src_geotrans,  srs, dst_filename, 
 		# Do the reprojection
 		gdal.ReprojectImage(rasterdata, # InRaster
 							dst,        # OutRaster
-							src.ExportToWkt(), # src_wkt
+							#src.ExportToWkt(), # src_wkt	# srs in place of src ; Issue #2 Typo in raster_tools
+							srs.ExportToWkt(), # src_wkt
 							srs_new.ExportToWkt(), # dst_wkt
 							GRA_Bilinear)    # eResampleAlg		
 		return dst
