@@ -13,7 +13,7 @@ def readme():
 setup(name='pyswath',
 	#version='0.1.1',
 	version=pyswath.__version__,
-	description='package that provide tools to extract swath profiles from a raster map',
+	description='package that provides tools to extract swath profiles from a raster map',
 	long_descritpion=open('README.rst').read(),
 	url='https://github.com/robertxa/pyswath',
 	download_url='https://github.com/robertxa/pyswath/archive/master.zip',
@@ -21,6 +21,7 @@ setup(name='pyswath',
 	author_email='xavier.robert@univ-grenoble-alpes.fr',
 	license='GPL-V3.0',
 	packages=find_packages(),
+	#include_package_data=True,	# What is the use of it ?
 	install_requires=[
 	      'rasterstats>=0.11.0',
 	      'shapely',

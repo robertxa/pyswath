@@ -1,6 +1,7 @@
 History changes of the python module pyswath
 2.O.4: 2020/05/15
 	- Fix bug in raster_tools.py (typo)
+	
 2.0.2: 2019/01/15
 	- Fix error in the projection of intermediary points
 

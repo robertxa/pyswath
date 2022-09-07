@@ -10,7 +10,10 @@ from __future__ import  division
 from __future__ import absolute_import
 from __future__ import print_function
 
-__version__ = "2.0.4"
+#from pkg_resources import get_distribution
+#__version__ = "2.0.4"
+__version__ = get_distribution('pyswath').version
+
 
 # Import modules
 import sys
