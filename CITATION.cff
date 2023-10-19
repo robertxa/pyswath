@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Robert"
+  given-names: "Xavier"
+  orcid: "https://orcid.org/0000-0002-0567-7497"
+title: "pySwath, a Python code to extract swath profiles"
+version: 2019
+doi: 10.5281/zenodo.2575055
+date-released: 2019-05-10
+url: "https://github.com/robertxa/pyswath"
